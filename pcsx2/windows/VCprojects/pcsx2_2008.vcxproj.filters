@@ -1,0 +1,1029 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="GUI">
+      <UniqueIdentifier>{a0479129-773b-480b-9406-db07c9ee14fd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GUI\Debugger">
+      <UniqueIdentifier>{591ad432-5d16-42aa-b23b-63ac693c9e77}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GUI\Resources">
+      <UniqueIdentifier>{80c1c663-f386-432b-8767-2eefae22e4e5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Elf">
+      <UniqueIdentifier>{5d2f3f38-06ee-473e-9541-9bddeb9fd0e6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Misc">
+      <UniqueIdentifier>{5bf2582f-8ad5-4fb0-b713-5a33c3d014f5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Misc\TinyXML">
+      <UniqueIdentifier>{f52e4a37-07e5-4821-be60-e63c59b24e55}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Misc\Cheats">
+      <UniqueIdentifier>{3bcb928b-2c55-4048-abb4-d176a9c2e25b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Misc\zlib">
+      <UniqueIdentifier>{5849b54a-8ee8-4a30-99ca-ef0e54241f9b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Misc\zlib\Includes">
+      <UniqueIdentifier>{eaa722ce-b35c-4bb1-a8eb-db2e73e4b334}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Misc\Linux">
+      <UniqueIdentifier>{365c90f1-735f-49ce-8ffc-0c9e18da606c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Docs">
+      <UniqueIdentifier>{6bf30a9b-c271-459f-b1c2-5be00062f309}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="rdebug">
+      <UniqueIdentifier>{e6ff7660-9c46-41d5-bcf3-63ee8d4215b1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Ps2">
+      <UniqueIdentifier>{8408c715-5c2e-4916-aa0c-05746861b069}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Ps2\EE">
+      <UniqueIdentifier>{5483b4d0-274a-46ef-b3c9-ea3c9b6e886e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Ps2\EE\Dynarec">
+      <UniqueIdentifier>{83df1f30-975e-438f-873a-fc28644064b7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Ps2\EE\Dynarec\ix86-32">
+      <UniqueIdentifier>{540eb9e0-393d-4263-87ba-e619cd9c30ec}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Ps2\Iop">
+      <UniqueIdentifier>{f1c7cee4-5aa9-4598-a9b6-f35896681bad}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Ps2\Iop\Dynarec">
+      <UniqueIdentifier>{c0c670e1-f77d-4382-b778-819881141e88}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Ps2\IPU">
+      <UniqueIdentifier>{0712a365-ee09-41e8-b0ab-6eba2fc70ea9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Ps2\IPU\mpeg2lib">
+      <UniqueIdentifier>{8410d9dc-938d-41b5-8aea-3feccdbd3d48}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Ps2\IPU\Dynarec">
+      <UniqueIdentifier>{dfe808dd-156e-4215-960e-5227dc3268ca}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Ps2\memory">
+      <UniqueIdentifier>{b402858a-7f09-45a6-a671-b1da8ab68aa3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Ps2\GS">
+      <UniqueIdentifier>{254da06e-b6cf-44e1-bb51-c957359afeb9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Ps2\GS\Dynarec">
+      <UniqueIdentifier>{ed265a22-1e86-4dd6-8df3-e18e6f8bf3cb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Ps2\VUmicro">
+      <UniqueIdentifier>{c95ddd6e-8902-4eef-8280-eef99bdcf71b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Ps2\VUmicro\Dynarec">
+      <UniqueIdentifier>{0e582918-0d09-4b64-94a8-8c1be5730b02}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Ps2\VUmicro\Dynarec\microVU">
+      <UniqueIdentifier>{80c3acf8-3b58-471d-95f6-6fc0c3c42af4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Ps2\Debug">
+      <UniqueIdentifier>{25ce9030-e918-4de0-a7c1-28a492f1b23b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Ps2\Hardware">
+      <UniqueIdentifier>{b1023527-5a1b-4e96-96ad-fc97f695e761}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Ps2\Hardware\Dynarec">
+      <UniqueIdentifier>{65725957-815a-40a6-b04f-45ac0f2bd730}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Ps2\Sif">
+      <UniqueIdentifier>{6d774905-6ea4-47eb-b6ce-493fd9b169e7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Ps2\Vif">
+      <UniqueIdentifier>{ebd32c4f-e3c1-4d23-a399-151a9fe9d405}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Ps2\Vif\Dynarec">
+      <UniqueIdentifier>{22e63db8-f2be-4604-8570-056f9196370a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ISO">
+      <UniqueIdentifier>{28cb815f-a967-49f6-aed9-092e1e0cd810}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="System">
+      <UniqueIdentifier>{4c3c6e7c-279c-43ac-9e58-dfd11f8afafa}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Dynarec Emitter">
+      <UniqueIdentifier>{1ffb006c-4bc3-417d-aee6-e17606a21134}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\AboutDlg.cpp">
+      <Filter>GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\AdvancedDlg.cpp">
+      <Filter>GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\ConfigDlg.cpp">
+      <Filter>GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\CpuDlg.cpp">
+      <Filter>GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\HacksDlg.cpp">
+      <Filter>GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\ini.cpp">
+      <Filter>GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\McdConfigDlg.cpp">
+      <Filter>GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\McdManagerDlg.cpp">
+      <Filter>GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\MovieDlg.cpp">
+      <Filter>GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\PatchBrowser.cpp">
+      <Filter>GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\RDebugger.cpp">
+      <Filter>GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\WinConsole.cpp">
+      <Filter>GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\WinMain.cpp">
+      <Filter>GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\WinSysExec.cpp">
+      <Filter>GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\WinVM.cpp">
+      <Filter>GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Debugger.cpp">
+      <Filter>GUI\Debugger</Filter>
+    </ClCompile>
+    <ClCompile Include="..\DebugMemory.cpp">
+      <Filter>GUI\Debugger</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Debugreg.cpp">
+      <Filter>GUI\Debugger</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Elfheader.cpp">
+      <Filter>Elf</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Misc.cpp">
+      <Filter>Misc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Patch.cpp">
+      <Filter>Misc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\PrecompiledHeader.cpp">
+      <Filter>Misc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\SourceLog.cpp">
+      <Filter>Misc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\vssprintf.cpp">
+      <Filter>Misc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\tinyxml\tinystr.cpp">
+      <Filter>Misc\TinyXML</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\tinyxml\tinyxml.cpp">
+      <Filter>Misc\TinyXML</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\tinyxml\tinyxmlerror.cpp">
+      <Filter>Misc\TinyXML</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\tinyxml\tinyxmlparser.cpp">
+      <Filter>Misc\TinyXML</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\xmlpatchloader.cpp">
+      <Filter>Misc\TinyXML</Filter>
+    </ClCompile>
+    <ClCompile Include="..\cheats\browser.cpp">
+      <Filter>Misc\Cheats</Filter>
+    </ClCompile>
+    <ClCompile Include="..\cheats\cheats.cpp">
+      <Filter>Misc\Cheats</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\3rdparty\zlib\adler32.c">
+      <Filter>Misc\zlib</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\3rdparty\zlib\compress.c">
+      <Filter>Misc\zlib</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\3rdparty\zlib\crc32.c">
+      <Filter>Misc\zlib</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\3rdparty\zlib\deflate.c">
+      <Filter>Misc\zlib</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\3rdparty\zlib\gzio.c">
+      <Filter>Misc\zlib</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\3rdparty\zlib\infback.c">
+      <Filter>Misc\zlib</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\3rdparty\zlib\inffast.c">
+      <Filter>Misc\zlib</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\3rdparty\zlib\inflate.c">
+      <Filter>Misc\zlib</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\3rdparty\zlib\inftrees.c">
+      <Filter>Misc\zlib</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\3rdparty\zlib\trees.c">
+      <Filter>Misc\zlib</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\3rdparty\zlib\uncompr.c">
+      <Filter>Misc\zlib</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\3rdparty\zlib\zutil.c">
+      <Filter>Misc\zlib</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Linux\AboutDlg.cpp">
+      <Filter>Misc\Linux</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Linux\AdvancedDlg.cpp">
+      <Filter>Misc\Linux</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Linux\ConfigDlg.cpp">
+      <Filter>Misc\Linux</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Linux\CpuDlg.cpp">
+      <Filter>Misc\Linux</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Linux\DebugDlg.cpp">
+      <Filter>Misc\Linux</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Linux\HacksDlg.cpp">
+      <Filter>Misc\Linux</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Linux\LnxConsole.cpp">
+      <Filter>Misc\Linux</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Linux\LnxMain.cpp">
+      <Filter>Misc\Linux</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Linux\LnxSysExec.cpp">
+      <Filter>Misc\Linux</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Linux\LnxThreads.cpp">
+      <Filter>Misc\Linux</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Linux\Pref.cpp">
+      <Filter>Misc\Linux</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\rdebug\deci2.cpp">
+      <Filter>rdebug</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\rdebug\deci2_dbgp.cpp">
+      <Filter>rdebug</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\rdebug\deci2_dcmp.cpp">
+      <Filter>rdebug</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\rdebug\deci2_iloadp.cpp">
+      <Filter>rdebug</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\rdebug\deci2_netmp.cpp">
+      <Filter>rdebug</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\rdebug\deci2_ttyp.cpp">
+      <Filter>rdebug</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\x86\BaseblockEx.cpp">
+      <Filter>Ps2</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\MemoryCard.cpp">
+      <Filter>Ps2</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Cache.cpp">
+      <Filter>Ps2\EE</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\COP0.cpp">
+      <Filter>Ps2\EE</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\COP2.cpp">
+      <Filter>Ps2\EE</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Counters.cpp">
+      <Filter>Ps2\EE</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\FPU.cpp">
+      <Filter>Ps2\EE</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Interpreter.cpp">
+      <Filter>Ps2\EE</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\MMI.cpp">
+      <Filter>Ps2\EE</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\R5900.cpp">
+      <Filter>Ps2\EE</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\R5900OpcodeImpl.cpp">
+      <Filter>Ps2\EE</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\R5900OpcodeTables.cpp">
+      <Filter>Ps2\EE</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\x86\iCOP0.cpp">
+      <Filter>Ps2\EE\Dynarec</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\x86\iCOP2.cpp">
+      <Filter>Ps2\EE\Dynarec</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\x86\iCore.cpp">
+      <Filter>Ps2\EE\Dynarec</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\x86\iFPU.cpp">
+      <Filter>Ps2\EE\Dynarec</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\x86\iMMI.cpp">
+      <Filter>Ps2\EE\Dynarec</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\x86\iR5900CoissuedLoadStore.cpp">
+      <Filter>Ps2\EE\Dynarec</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\x86\iR5900Misc.cpp">
+      <Filter>Ps2\EE\Dynarec</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\x86\ir5900tables.cpp">
+      <Filter>Ps2\EE\Dynarec</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\x86\ix86-32\iCore-32.cpp">
+      <Filter>Ps2\EE\Dynarec\ix86-32</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\x86\ix86-32\iR5900-32.cpp">
+      <Filter>Ps2\EE\Dynarec\ix86-32</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\x86\ix86-32\iR5900Arit.cpp">
+      <Filter>Ps2\EE\Dynarec\ix86-32</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\x86\ix86-32\iR5900AritImm.cpp">
+      <Filter>Ps2\EE\Dynarec\ix86-32</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\x86\ix86-32\iR5900Branch.cpp">
+      <Filter>Ps2\EE\Dynarec\ix86-32</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\x86\ix86-32\iR5900Jump.cpp">
+      <Filter>Ps2\EE\Dynarec\ix86-32</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\x86\ix86-32\iR5900LoadStore.cpp">
+      <Filter>Ps2\EE\Dynarec\ix86-32</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\x86\ix86-32\iR5900Move.cpp">
+      <Filter>Ps2\EE\Dynarec\ix86-32</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\x86\ix86-32\iR5900MultDiv.cpp">
+      <Filter>Ps2\EE\Dynarec\ix86-32</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\x86\ix86-32\iR5900Shift.cpp">
+      <Filter>Ps2\EE\Dynarec\ix86-32</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\x86\ix86-32\iR5900Templates.cpp">
+      <Filter>Ps2\EE\Dynarec\ix86-32</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\CdRom.cpp">
+      <Filter>Ps2\Iop</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\CDVD.cpp">
+      <Filter>Ps2\Iop</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\IopBios.cpp">
+      <Filter>Ps2\Iop</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\IopCounters.cpp">
+      <Filter>Ps2\Iop</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\IopDma.cpp">
+      <Filter>Ps2\Iop</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\IopMem.cpp">
+      <Filter>Ps2\Iop</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\IopSio2.cpp">
+      <Filter>Ps2\Iop</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\R3000A.cpp">
+      <Filter>Ps2\Iop</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\R3000AInterpreter.cpp">
+      <Filter>Ps2\Iop</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\R3000AOpcodeTables.cpp">
+      <Filter>Ps2\Iop</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Sio.cpp">
+      <Filter>Ps2\Iop</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\x86\iPsxMem.cpp">
+      <Filter>Ps2\Iop\Dynarec</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\x86\iR3000A.cpp">
+      <Filter>Ps2\Iop\Dynarec</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\x86\iR3000Atables.cpp">
+      <Filter>Ps2\Iop\Dynarec</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\IPU\coroutine.cpp">
+      <Filter>Ps2\IPU</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Ipu\IPU.cpp">
+      <Filter>Ps2\IPU</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Ipu\yuv2rgb.cpp">
+      <Filter>Ps2\IPU</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Ipu\mpeg2lib\Idct.cpp">
+      <Filter>Ps2\IPU\mpeg2lib</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Ipu\mpeg2lib\Mpeg.cpp">
+      <Filter>Ps2\IPU\mpeg2lib</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\x86\iIPU.cpp">
+      <Filter>Ps2\IPU\Dynarec</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Memory.cpp">
+      <Filter>Ps2\memory</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\MemoryVM.cpp">
+      <Filter>Ps2\memory</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\x86\ix86-32\recVTLB.cpp">
+      <Filter>Ps2\memory</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\vtlb.cpp">
+      <Filter>Ps2\memory</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Gif.cpp">
+      <Filter>Ps2\GS</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\GS.cpp">
+      <Filter>Ps2\GS</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\MTGS.cpp">
+      <Filter>Ps2\GS</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\x86\iGS.cpp">
+      <Filter>Ps2\GS\Dynarec</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\VU0.cpp">
+      <Filter>Ps2\VUmicro</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\VU0micro.cpp">
+      <Filter>Ps2\VUmicro</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\VU0microInterp.cpp">
+      <Filter>Ps2\VUmicro</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\VU1micro.cpp">
+      <Filter>Ps2\VUmicro</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\VU1microInterp.cpp">
+      <Filter>Ps2\VUmicro</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\VUflags.cpp">
+      <Filter>Ps2\VUmicro</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\VUmicroMem.cpp">
+      <Filter>Ps2\VUmicro</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\VUops.cpp">
+      <Filter>Ps2\VUmicro</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\x86\iVU0micro.cpp">
+      <Filter>Ps2\VUmicro\Dynarec</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\x86\iVU1micro.cpp">
+      <Filter>Ps2\VUmicro\Dynarec</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\x86\iVUmicro.cpp">
+      <Filter>Ps2\VUmicro\Dynarec</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\x86\iVUmicroLower.cpp">
+      <Filter>Ps2\VUmicro\Dynarec</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\x86\iVUmicroUpper.cpp">
+      <Filter>Ps2\VUmicro\Dynarec</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\x86\iVUzerorec.cpp">
+      <Filter>Ps2\VUmicro\Dynarec</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\x86\microVU.cpp">
+      <Filter>Ps2\VUmicro\Dynarec\microVU</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\x86\microVU_Lower.cpp">
+      <Filter>Ps2\VUmicro\Dynarec\microVU</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\x86\microVU_Tables.cpp">
+      <Filter>Ps2\VUmicro\Dynarec\microVU</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\x86\microVU_Upper.cpp">
+      <Filter>Ps2\VUmicro\Dynarec\microVU</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\DebugTools\DisR3000A.cpp">
+      <Filter>Ps2\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\DebugTools\DisR3000asm.cpp">
+      <Filter>Ps2\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\DebugTools\DisR5900.cpp">
+      <Filter>Ps2\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\DebugTools\DisR5900asm.cpp">
+      <Filter>Ps2\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\DebugTools\DisVU0Micro.cpp">
+      <Filter>Ps2\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\DebugTools\DisVU1Micro.cpp">
+      <Filter>Ps2\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\FiFo.cpp">
+      <Filter>Ps2\Hardware</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Hw.cpp">
+      <Filter>Ps2\Hardware</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\HwRead.cpp">
+      <Filter>Ps2\Hardware</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\HwWrite.cpp">
+      <Filter>Ps2\Hardware</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\IopHw.cpp">
+      <Filter>Ps2\Hardware</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\SPR.cpp">
+      <Filter>Ps2\Hardware</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\x86\iHw.cpp">
+      <Filter>Ps2\Hardware\Dynarec</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\x86\iPsxHw.cpp">
+      <Filter>Ps2\Hardware\Dynarec</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Sif.cpp">
+      <Filter>Ps2\Sif</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Vif.cpp">
+      <Filter>Ps2\Vif</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\VifDma.cpp">
+      <Filter>Ps2\Vif</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\x86\iVif.cpp">
+      <Filter>Ps2\Vif\Dynarec</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\CDVDiso.cpp">
+      <Filter>ISO</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\CDVDisodrv.cpp">
+      <Filter>ISO</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\AlignedMalloc.cpp">
+      <Filter>System</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Console.cpp">
+      <Filter>System</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\x86\fast_routines.cpp">
+      <Filter>System</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\PathUtils.cpp">
+      <Filter>System</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Plugins.cpp">
+      <Filter>System</Filter>
+    </ClCompile>
+    <ClCompile Include="..\SamplProf.cpp">
+      <Filter>System</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\SaveState.cpp">
+      <Filter>System</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\System.cpp">
+      <Filter>System</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\ThreadTools.cpp">
+      <Filter>System</Filter>
+    </ClCompile>
+    <ClCompile Include="..\WinCompressNTFS.cpp">
+      <Filter>System</Filter>
+    </ClCompile>
+    <ClCompile Include="..\WinThreads.cpp">
+      <Filter>System</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\x86\ix86\ix86.cpp">
+      <Filter>Dynarec Emitter</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\x86\ix86\ix86_3dnow.cpp">
+      <Filter>Dynarec Emitter</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\x86\ix86\ix86_cpudetect.cpp">
+      <Filter>Dynarec Emitter</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\x86\ix86\ix86_fpu.cpp">
+      <Filter>Dynarec Emitter</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\x86\ix86\ix86_mmx.cpp">
+      <Filter>Dynarec Emitter</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\x86\ix86\ix86_sse.cpp">
+      <Filter>Dynarec Emitter</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\x86\ix86\ix86_tools.cpp">
+      <Filter>Dynarec Emitter</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Stats.cpp" />
+    <ClCompile Include="..\..\TAS.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\AboutDlg.h">
+      <Filter>GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\McdsDlg.h">
+      <Filter>GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\MovieDlg.h">
+      <Filter>GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\RDebugger.h">
+      <Filter>GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Win32.h">
+      <Filter>GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Debugger.h">
+      <Filter>GUI\Debugger</Filter>
+    </ClInclude>
+    <ClInclude Include="..\resource.h">
+      <Filter>GUI\Resources</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Elfheader.h">
+      <Filter>Elf</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Misc.h">
+      <Filter>Misc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Patch.h">
+      <Filter>Misc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\PrecompiledHeader.h">
+      <Filter>Misc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\StringUtils.h">
+      <Filter>Misc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\tinyxml\tinystr.h">
+      <Filter>Misc\TinyXML</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\tinyxml\tinyxml.h">
+      <Filter>Misc\TinyXML</Filter>
+    </ClInclude>
+    <ClInclude Include="..\cheats\cheats.h">
+      <Filter>Misc\Cheats</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\3rdparty\zlib\crc32.h">
+      <Filter>Misc\zlib\Includes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\3rdparty\zlib\deflate.h">
+      <Filter>Misc\zlib\Includes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\3rdparty\zlib\inffast.h">
+      <Filter>Misc\zlib\Includes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\3rdparty\zlib\inffixed.h">
+      <Filter>Misc\zlib\Includes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\3rdparty\zlib\inflate.h">
+      <Filter>Misc\zlib\Includes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\3rdparty\zlib\inftrees.h">
+      <Filter>Misc\zlib\Includes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\3rdparty\zlib\trees.h">
+      <Filter>Misc\zlib\Includes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\3rdparty\zlib\zconf.h">
+      <Filter>Misc\zlib\Includes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\3rdparty\zlib\zlib.h">
+      <Filter>Misc\zlib\Includes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\3rdparty\zlib\zutil.h">
+      <Filter>Misc\zlib\Includes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Linux\ConfigDlg.h">
+      <Filter>Misc\Linux</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Linux\DebugDlg.h">
+      <Filter>Misc\Linux</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Linux\LnxMain.h">
+      <Filter>Misc\Linux</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Linux\LnxSysExec.h">
+      <Filter>Misc\Linux</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Linux\memzero.h">
+      <Filter>Misc\Linux</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\rdebug\deci2.h">
+      <Filter>rdebug</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\rdebug\deci2_dbgp.h">
+      <Filter>rdebug</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\rdebug\deci2_dcmp.h">
+      <Filter>rdebug</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\rdebug\deci2_drfp.h">
+      <Filter>rdebug</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\rdebug\deci2_iloadp.h">
+      <Filter>rdebug</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\rdebug\deci2_netmp.h">
+      <Filter>rdebug</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\rdebug\deci2_ttyp.h">
+      <Filter>rdebug</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\x86\BaseblockEx.h">
+      <Filter>Ps2</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\MemoryCard.h">
+      <Filter>Ps2</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Cache.h">
+      <Filter>Ps2\EE</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Counters.h">
+      <Filter>Ps2\EE</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\EEregs.h">
+      <Filter>Ps2\EE</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\R5900.h">
+      <Filter>Ps2\EE</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\R5900OpcodeTables.h">
+      <Filter>Ps2\EE</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\x86\iCOP0.h">
+      <Filter>Ps2\EE\Dynarec</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\x86\iCore.h">
+      <Filter>Ps2\EE\Dynarec</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\x86\iFPU.h">
+      <Filter>Ps2\EE\Dynarec</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\x86\iMMI.h">
+      <Filter>Ps2\EE\Dynarec</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\x86\iR5900.h">
+      <Filter>Ps2\EE\Dynarec</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\x86\iR5900Arit.h">
+      <Filter>Ps2\EE\Dynarec</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\x86\iR5900AritImm.h">
+      <Filter>Ps2\EE\Dynarec</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\x86\iR5900Branch.h">
+      <Filter>Ps2\EE\Dynarec</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\x86\iR5900Jump.h">
+      <Filter>Ps2\EE\Dynarec</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\x86\iR5900LoadStore.h">
+      <Filter>Ps2\EE\Dynarec</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\x86\iR5900Move.h">
+      <Filter>Ps2\EE\Dynarec</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\x86\iR5900MultDiv.h">
+      <Filter>Ps2\EE\Dynarec</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\x86\iR5900Shift.h">
+      <Filter>Ps2\EE\Dynarec</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\CdRom.h">
+      <Filter>Ps2\Iop</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\CDVD.h">
+      <Filter>Ps2\Iop</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\IopBios.h">
+      <Filter>Ps2\Iop</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\IopBios2.h">
+      <Filter>Ps2\Iop</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\IopCounters.h">
+      <Filter>Ps2\Iop</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\IopDma.h">
+      <Filter>Ps2\Iop</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\IopMem.h">
+      <Filter>Ps2\Iop</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\IopSio2.h">
+      <Filter>Ps2\Iop</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\R3000A.h">
+      <Filter>Ps2\Iop</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Sio.h">
+      <Filter>Ps2\Iop</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\x86\iR3000A.h">
+      <Filter>Ps2\Iop\Dynarec</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\IPU\coroutine.h">
+      <Filter>Ps2\IPU</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Ipu\IPU.h">
+      <Filter>Ps2\IPU</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Ipu\yuv2rgb.h">
+      <Filter>Ps2\IPU</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Ipu\mpeg2lib\Mpeg.h">
+      <Filter>Ps2\IPU\mpeg2lib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Ipu\mpeg2lib\Vlc.h">
+      <Filter>Ps2\IPU\mpeg2lib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Memory.h">
+      <Filter>Ps2\memory</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\vtlb.h">
+      <Filter>Ps2\memory</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\GS.h">
+      <Filter>Ps2\GS</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\VU.h">
+      <Filter>Ps2\VUmicro</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\VUflags.h">
+      <Filter>Ps2\VUmicro</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\VUmicro.h">
+      <Filter>Ps2\VUmicro</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\VUops.h">
+      <Filter>Ps2\VUmicro</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\x86\iVU0micro.h">
+      <Filter>Ps2\VUmicro\Dynarec</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\x86\iVU1micro.h">
+      <Filter>Ps2\VUmicro\Dynarec</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\x86\iVUmicro.h">
+      <Filter>Ps2\VUmicro\Dynarec</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\x86\iVUops.h">
+      <Filter>Ps2\VUmicro\Dynarec</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\x86\iVUzerorec.h">
+      <Filter>Ps2\VUmicro\Dynarec</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\x86\microVU.h">
+      <Filter>Ps2\VUmicro\Dynarec\microVU</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\x86\microVU_Tables.h">
+      <Filter>Ps2\VUmicro\Dynarec\microVU</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\DebugTools\Debug.h">
+      <Filter>Ps2\Debug</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\DebugTools\DisASM.h">
+      <Filter>Ps2\Debug</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\DebugTools\DisVUmicro.h">
+      <Filter>Ps2\Debug</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\DebugTools\DisVUops.h">
+      <Filter>Ps2\Debug</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Hw.h">
+      <Filter>Ps2\Hardware</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\IopHw.h">
+      <Filter>Ps2\Hardware</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\SPR.h">
+      <Filter>Ps2\Hardware</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Sif.h">
+      <Filter>Ps2\Sif</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Sifcmd.h">
+      <Filter>Ps2\Sif</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Vif.h">
+      <Filter>Ps2\Vif</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\VifDma.h">
+      <Filter>Ps2\Vif</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\CDVDiso.h">
+      <Filter>ISO</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\CDVDisodrv.h">
+      <Filter>ISO</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Exceptions.h">
+      <Filter>System</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\MemcpyFast.h">
+      <Filter>System</Filter>
+    </ClInclude>
+    <ClInclude Include="..\memzero.h">
+      <Filter>System</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Paths.h">
+      <Filter>System</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Plugins.h">
+      <Filter>System</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\SafeArray.h">
+      <Filter>System</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\SamplProf.h">
+      <Filter>System</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\SaveState.h">
+      <Filter>System</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\System.h">
+      <Filter>System</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Threading.h">
+      <Filter>System</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\x86\ix86\ix86.h">
+      <Filter>Dynarec Emitter</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Common.h" />
+    <ClInclude Include="..\..\Stats.h" />
+    <ClInclude Include="..\..\TAS.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="..\Cdrom02.ico">
+      <Filter>GUI\Resources</Filter>
+    </Image>
+    <Image Include="..\..\pcsxAbout.bmp">
+      <Filter>GUI\Resources</Filter>
+    </Image>
+    <Image Include="..\ps2_silver.bmp">
+      <Filter>GUI\Resources</Filter>
+    </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="..\pcsx2.rc">
+      <Filter>GUI\Resources</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="..\..\Docs\ChangeLog.txt">
+      <Filter>Docs</Filter>
+    </Text>
+    <Text Include="..\..\Docs\devblog.txt">
+      <Filter>Docs</Filter>
+    </Text>
+    <Text Include="..\..\Docs\License.txt">
+      <Filter>Docs</Filter>
+    </Text>
+    <Text Include="..\..\Docs\PS2Edefs.txt">
+      <Filter>Docs</Filter>
+    </Text>
+    <Text Include="..\..\Docs\readme 0.9.4.txt">
+      <Filter>Docs</Filter>
+    </Text>
+    <Text Include="..\..\Docs\readme Playground.txt">
+      <Filter>Docs</Filter>
+    </Text>
+    <Text Include="..\..\Docs\RemoteDebugging.txt">
+      <Filter>Docs</Filter>
+    </Text>
+  </ItemGroup>
+  <ItemGroup>
+    <Object Include="..\..\Ipu\idct_mmx.obj">
+      <Filter>Ps2\IPU</Filter>
+    </Object>
+  </ItemGroup>
+  <ItemGroup>
+    <MASM Include="..\..\x86\ix86-32\aVif_proc-32.asm">
+      <Filter>Ps2\Vif\Dynarec</Filter>
+    </MASM>
+  </ItemGroup>
+</Project>

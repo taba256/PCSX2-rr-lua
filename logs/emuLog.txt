@@ -1,0 +1,20 @@
+PCSX2 0.9.6 - compiled on May 14 2009
+Savestate version: 8b400004
+x86Init:
+	CPU vendor name =  GenuineIntel
+	FamilyID  =  a
+	x86Family =  Intel(R) Core(TM)2 Quad CPU    Q9400  @ 2.66GHz
+	CPU speed =  2.424 Ghz
+	Cores     =  4 physical [4 logical]
+	x86PType  =  Standard OEM
+	x86Flags  =  bfebfbff 0c08e3fd
+	x86EFlags =  20100000
+
+Features:
+	Detected MMX
+	Detected SSE
+	Detected SSE2
+	Detected SSE3
+	Detected SSSE3
+	Detected SSE4.1
+

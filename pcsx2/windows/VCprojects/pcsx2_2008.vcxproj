@@ -1,0 +1,719 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="12.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Devel|Win32">
+      <Configuration>Devel</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectName>pcsx2</ProjectName>
+    <ProjectGuid>{1CEFD830-2B76-4596-A4EE-BCD7280A60BD}</ProjectGuid>
+    <RootNamespace>pcsx2</RootNamespace>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <PlatformToolset>v120</PlatformToolset>
+    <UseOfMfc>false</UseOfMfc>
+    <CharacterSet>MultiByte</CharacterSet>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Devel|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <PlatformToolset>v120</PlatformToolset>
+    <UseOfMfc>false</UseOfMfc>
+    <CharacterSet>MultiByte</CharacterSet>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <PlatformToolset>v120</PlatformToolset>
+    <UseOfMfc>false</UseOfMfc>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+    <Import Project="$(VCTargetsPath)\BuildCustomizations\masm.props" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="vsprops\common.props" />
+    <Import Project="vsprops\release.props" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Devel|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="vsprops\common.props" />
+    <Import Project="vsprops\release.props" />
+    <Import Project="vsprops\devbuild.props" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="vsprops\common.props" />
+    <Import Project="vsprops\debug.props" />
+    <Import Project="vsprops\devbuild.props" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup>
+    <_ProjectFileVersion>12.0.21005.1</_ProjectFileVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <LinkIncremental>true</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <PreBuildEventUseInBuild>false</PreBuildEventUseInBuild>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Midl>
+      <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <MkTypLibCompatible>true</MkTypLibCompatible>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <TargetEnvironment>Win32</TargetEnvironment>
+      <TypeLibraryName>.\Debug/pcsx2.tlb</TypeLibraryName>
+    </Midl>
+    <ClCompile>
+      <PreprocessorDefinitions>WIN32_PTHREADS;__CLEANUP_SEH;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <MinimalRebuild>true</MinimalRebuild>
+      <ExceptionHandling>Async</ExceptionHandling>
+      <SmallerTypeCheck>false</SmallerTypeCheck>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeaderFile>PrecompiledHeader.h</PrecompiledHeaderFile>
+      <PrecompiledHeaderOutputFile>$(IntDir)$(TargetName).pch</PrecompiledHeaderOutputFile>
+      <CompileAs>CompileAsCpp</CompileAs>
+    </ClCompile>
+    <Link>
+      <AdditionalOptions>/MACHINE:I386 %(AdditionalOptions)</AdditionalOptions>
+      <OutputFile>$(OutDir)$(ProjectName)-dbg.exe</OutputFile>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Devel|Win32'">
+    <Midl>
+      <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <MkTypLibCompatible>true</MkTypLibCompatible>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <TargetEnvironment>Win32</TargetEnvironment>
+      <TypeLibraryName>.\Release/pcsx2.tlb</TypeLibraryName>
+    </Midl>
+    <ClCompile>
+      <Optimization>Full</Optimization>
+      <PreprocessorDefinitions>NDEBUG;WIN32_PTHREADS;__CLEANUP_SEH;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <StringPooling>true</StringPooling>
+      <ExceptionHandling>Async</ExceptionHandling>
+      <SmallerTypeCheck>false</SmallerTypeCheck>
+      <BufferSecurityCheck>false</BufferSecurityCheck>
+      <FunctionLevelLinking>false</FunctionLevelLinking>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeaderFile>PrecompiledHeader.h</PrecompiledHeaderFile>
+      <PrecompiledHeaderOutputFile>$(IntDir)$(TargetName).pch</PrecompiledHeaderOutputFile>
+      <WarningLevel>Level3</WarningLevel>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <CompileAs>CompileAsCpp</CompileAs>
+    </ClCompile>
+    <Link>
+      <OutputFile>$(OutDir)$(ProjectName)-dev.exe</OutputFile>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Midl>
+      <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <MkTypLibCompatible>true</MkTypLibCompatible>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <TargetEnvironment>Win32</TargetEnvironment>
+      <TypeLibraryName>.\Release/pcsx2.tlb</TypeLibraryName>
+    </Midl>
+    <ClCompile>
+      <Optimization>Full</Optimization>
+      <EnableFiberSafeOptimizations>true</EnableFiberSafeOptimizations>
+      <PreprocessorDefinitions>NDEBUG;WIN32_PTHREADS;__CLEANUP_SEH;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ExceptionHandling>Async</ExceptionHandling>
+      <SmallerTypeCheck>false</SmallerTypeCheck>
+      <BufferSecurityCheck>false</BufferSecurityCheck>
+      <EnableEnhancedInstructionSet>NotSet</EnableEnhancedInstructionSet>
+      <PrecompiledHeader />
+      <PrecompiledHeaderFile>PrecompiledHeader.h</PrecompiledHeaderFile>
+      <PrecompiledHeaderOutputFile>$(IntDir)$(TargetName).pch</PrecompiledHeaderOutputFile>
+      <CompileAs>CompileAsCpp</CompileAs>
+    </ClCompile>
+    <Link>
+      <ProgramDatabaseFile>"$(TargetDir)$(TargetName).pdb"</ProgramDatabaseFile>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="..\AboutDlg.cpp" />
+    <ClCompile Include="..\AdvancedDlg.cpp" />
+    <ClCompile Include="..\ConfigDlg.cpp" />
+    <ClCompile Include="..\CpuDlg.cpp" />
+    <ClCompile Include="..\HacksDlg.cpp" />
+    <ClCompile Include="..\ini.cpp" />
+    <ClCompile Include="..\McdConfigDlg.cpp" />
+    <ClCompile Include="..\McdManagerDlg.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Devel|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\MovieDlg.cpp" />
+    <ClCompile Include="..\PatchBrowser.cpp" />
+    <ClCompile Include="..\RDebugger.cpp" />
+    <ClCompile Include="..\WinConsole.cpp" />
+    <ClCompile Include="..\WinMain.cpp">
+      <BufferSecurityCheck Condition="'$(Configuration)|$(Platform)'=='Devel|Win32'">false</BufferSecurityCheck>
+      <BufferSecurityCheck Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</BufferSecurityCheck>
+    </ClCompile>
+    <ClCompile Include="..\WinSysExec.cpp">
+      <BufferSecurityCheck Condition="'$(Configuration)|$(Platform)'=='Devel|Win32'">false</BufferSecurityCheck>
+      <BufferSecurityCheck Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</BufferSecurityCheck>
+    </ClCompile>
+    <ClCompile Include="..\WinVM.cpp" />
+    <ClCompile Include="..\Debugger.cpp" />
+    <ClCompile Include="..\DebugMemory.cpp" />
+    <ClCompile Include="..\Debugreg.cpp" />
+    <ClCompile Include="..\..\Elfheader.cpp" />
+    <ClCompile Include="..\..\Misc.cpp" />
+    <ClCompile Include="..\..\Patch.cpp" />
+    <ClCompile Include="..\..\PrecompiledHeader.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
+      <PrecompiledHeaderOutputFile Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(IntDir)$(TargetName).pch</PrecompiledHeaderOutputFile>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Devel|Win32'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="..\..\SourceLog.cpp" />
+    <ClCompile Include="..\..\vssprintf.cpp" />
+    <ClCompile Include="..\..\tinyxml\tinystr.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+      </PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Devel|Win32'">
+      </PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+      </PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="..\..\tinyxml\tinyxml.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+      </PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Devel|Win32'">
+      </PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+      </PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="..\..\tinyxml\tinyxmlerror.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+      </PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Devel|Win32'">
+      </PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+      </PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="..\..\tinyxml\tinyxmlparser.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+      </PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Devel|Win32'">
+      </PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+      </PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="..\..\xmlpatchloader.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Use</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Devel|Win32'">Use</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Use</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="..\cheats\browser.cpp" />
+    <ClCompile Include="..\cheats\cheats.cpp" />
+    <ClCompile Include="..\..\3rdparty\zlib\adler32.c">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+      </PrecompiledHeader>
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">CompileAsC</CompileAs>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Devel|Win32'">
+      </PrecompiledHeader>
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Devel|Win32'">CompileAsC</CompileAs>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+      </PrecompiledHeader>
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">CompileAsC</CompileAs>
+    </ClCompile>
+    <ClCompile Include="..\..\3rdparty\zlib\compress.c">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+      </PrecompiledHeader>
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">CompileAsC</CompileAs>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Devel|Win32'">
+      </PrecompiledHeader>
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Devel|Win32'">CompileAsC</CompileAs>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+      </PrecompiledHeader>
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">CompileAsC</CompileAs>
+    </ClCompile>
+    <ClCompile Include="..\..\3rdparty\zlib\crc32.c">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+      </PrecompiledHeader>
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">CompileAsC</CompileAs>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Devel|Win32'">
+      </PrecompiledHeader>
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Devel|Win32'">CompileAsC</CompileAs>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+      </PrecompiledHeader>
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">CompileAsC</CompileAs>
+    </ClCompile>
+    <ClCompile Include="..\..\3rdparty\zlib\deflate.c">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+      </PrecompiledHeader>
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">CompileAsC</CompileAs>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Devel|Win32'">
+      </PrecompiledHeader>
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Devel|Win32'">CompileAsC</CompileAs>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+      </PrecompiledHeader>
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">CompileAsC</CompileAs>
+    </ClCompile>
+    <ClCompile Include="..\..\3rdparty\zlib\gzio.c">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+      </PrecompiledHeader>
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">CompileAsC</CompileAs>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Devel|Win32'">
+      </PrecompiledHeader>
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Devel|Win32'">CompileAsC</CompileAs>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+      </PrecompiledHeader>
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">CompileAsC</CompileAs>
+    </ClCompile>
+    <ClCompile Include="..\..\3rdparty\zlib\infback.c">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+      </PrecompiledHeader>
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">CompileAsC</CompileAs>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Devel|Win32'">
+      </PrecompiledHeader>
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Devel|Win32'">CompileAsC</CompileAs>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+      </PrecompiledHeader>
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">CompileAsC</CompileAs>
+    </ClCompile>
+    <ClCompile Include="..\..\3rdparty\zlib\inffast.c">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+      </PrecompiledHeader>
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">CompileAsC</CompileAs>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Devel|Win32'">
+      </PrecompiledHeader>
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Devel|Win32'">CompileAsC</CompileAs>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+      </PrecompiledHeader>
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">CompileAsC</CompileAs>
+    </ClCompile>
+    <ClCompile Include="..\..\3rdparty\zlib\inflate.c">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+      </PrecompiledHeader>
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">CompileAsC</CompileAs>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Devel|Win32'">
+      </PrecompiledHeader>
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Devel|Win32'">CompileAsC</CompileAs>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+      </PrecompiledHeader>
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">CompileAsC</CompileAs>
+    </ClCompile>
+    <ClCompile Include="..\..\3rdparty\zlib\inftrees.c">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+      </PrecompiledHeader>
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">CompileAsC</CompileAs>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Devel|Win32'">
+      </PrecompiledHeader>
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Devel|Win32'">CompileAsC</CompileAs>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+      </PrecompiledHeader>
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">CompileAsC</CompileAs>
+    </ClCompile>
+    <ClCompile Include="..\..\3rdparty\zlib\trees.c">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+      </PrecompiledHeader>
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">CompileAsC</CompileAs>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Devel|Win32'">
+      </PrecompiledHeader>
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Devel|Win32'">CompileAsC</CompileAs>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+      </PrecompiledHeader>
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">CompileAsC</CompileAs>
+    </ClCompile>
+    <ClCompile Include="..\..\3rdparty\zlib\uncompr.c">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+      </PrecompiledHeader>
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">CompileAsC</CompileAs>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Devel|Win32'">
+      </PrecompiledHeader>
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Devel|Win32'">CompileAsC</CompileAs>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+      </PrecompiledHeader>
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">CompileAsC</CompileAs>
+    </ClCompile>
+    <ClCompile Include="..\..\3rdparty\zlib\zutil.c">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+      </PrecompiledHeader>
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">CompileAsC</CompileAs>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Devel|Win32'">
+      </PrecompiledHeader>
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Devel|Win32'">CompileAsC</CompileAs>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+      </PrecompiledHeader>
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">CompileAsC</CompileAs>
+    </ClCompile>
+    <ClCompile Include="..\..\Linux\AboutDlg.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Devel|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\Linux\AdvancedDlg.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Devel|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\Linux\ConfigDlg.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Devel|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\Linux\CpuDlg.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Devel|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\Linux\DebugDlg.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Devel|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\Linux\HacksDlg.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Devel|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\Linux\LnxConsole.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Devel|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\Linux\LnxMain.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Devel|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\Linux\LnxSysExec.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Devel|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\Linux\LnxThreads.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Devel|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\Linux\Pref.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Devel|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\rdebug\deci2.cpp" />
+    <ClCompile Include="..\..\rdebug\deci2_dbgp.cpp" />
+    <ClCompile Include="..\..\rdebug\deci2_dcmp.cpp" />
+    <ClCompile Include="..\..\rdebug\deci2_iloadp.cpp" />
+    <ClCompile Include="..\..\rdebug\deci2_netmp.cpp" />
+    <ClCompile Include="..\..\rdebug\deci2_ttyp.cpp" />
+    <ClCompile Include="..\..\x86\BaseblockEx.cpp" />
+    <ClCompile Include="..\..\MemoryCard.cpp" />
+    <ClCompile Include="..\..\Cache.cpp" />
+    <ClCompile Include="..\..\COP0.cpp" />
+    <ClCompile Include="..\..\COP2.cpp" />
+    <ClCompile Include="..\..\Counters.cpp">
+      <RuntimeLibrary Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">MultiThreaded</RuntimeLibrary>
+      <AssemblerOutput Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">AssemblyAndSourceCode</AssemblerOutput>
+    </ClCompile>
+    <ClCompile Include="..\..\FPU.cpp" />
+    <ClCompile Include="..\..\Interpreter.cpp" />
+    <ClCompile Include="..\..\MMI.cpp" />
+    <ClCompile Include="..\..\R5900.cpp" />
+    <ClCompile Include="..\..\R5900OpcodeImpl.cpp" />
+    <ClCompile Include="..\..\R5900OpcodeTables.cpp" />
+    <ClCompile Include="..\..\x86\iCOP0.cpp" />
+    <ClCompile Include="..\..\x86\iCOP2.cpp" />
+    <ClCompile Include="..\..\x86\iCore.cpp" />
+    <ClCompile Include="..\..\x86\iFPU.cpp">
+      <AssemblerOutput Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+      </AssemblerOutput>
+      <AssemblerOutput Condition="'$(Configuration)|$(Platform)'=='Devel|Win32'">
+      </AssemblerOutput>
+      <AssemblerOutput Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+      </AssemblerOutput>
+    </ClCompile>
+    <ClCompile Include="..\..\x86\iMMI.cpp" />
+    <ClCompile Include="..\..\x86\iR5900CoissuedLoadStore.cpp" />
+    <ClCompile Include="..\..\x86\iR5900Misc.cpp" />
+    <ClCompile Include="..\..\x86\ir5900tables.cpp" />
+    <ClCompile Include="..\..\x86\ix86-32\iCore-32.cpp" />
+    <ClCompile Include="..\..\x86\ix86-32\iR5900-32.cpp">
+      <AssemblerOutput Condition="'$(Configuration)|$(Platform)'=='Devel|Win32'">AssemblyAndSourceCode</AssemblerOutput>
+    </ClCompile>
+    <ClCompile Include="..\..\x86\ix86-32\iR5900Arit.cpp" />
+    <ClCompile Include="..\..\x86\ix86-32\iR5900AritImm.cpp" />
+    <ClCompile Include="..\..\x86\ix86-32\iR5900Branch.cpp" />
+    <ClCompile Include="..\..\x86\ix86-32\iR5900Jump.cpp" />
+    <ClCompile Include="..\..\x86\ix86-32\iR5900LoadStore.cpp" />
+    <ClCompile Include="..\..\x86\ix86-32\iR5900Move.cpp" />
+    <ClCompile Include="..\..\x86\ix86-32\iR5900MultDiv.cpp" />
+    <ClCompile Include="..\..\x86\ix86-32\iR5900Shift.cpp" />
+    <ClCompile Include="..\..\x86\ix86-32\iR5900Templates.cpp" />
+    <ClCompile Include="..\..\CdRom.cpp" />
+    <ClCompile Include="..\..\CDVD.cpp" />
+    <ClCompile Include="..\..\IopBios.cpp" />
+    <ClCompile Include="..\..\IopCounters.cpp" />
+    <ClCompile Include="..\..\IopDma.cpp" />
+    <ClCompile Include="..\..\IopMem.cpp" />
+    <ClCompile Include="..\..\IopSio2.cpp" />
+    <ClCompile Include="..\..\R3000A.cpp" />
+    <ClCompile Include="..\..\R3000AInterpreter.cpp" />
+    <ClCompile Include="..\..\R3000AOpcodeTables.cpp" />
+    <ClCompile Include="..\..\Sio.cpp" />
+    <ClCompile Include="..\..\x86\iPsxMem.cpp" />
+    <ClCompile Include="..\..\x86\iR3000A.cpp" />
+    <ClCompile Include="..\..\x86\iR3000Atables.cpp" />
+    <ClCompile Include="..\..\IPU\coroutine.cpp" />
+    <ClCompile Include="..\..\Ipu\IPU.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+      </PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Devel|Win32'">
+      </PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+      </PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="..\..\Ipu\yuv2rgb.cpp" />
+    <ClCompile Include="..\..\Ipu\mpeg2lib\Idct.cpp" />
+    <ClCompile Include="..\..\Ipu\mpeg2lib\Mpeg.cpp" />
+    <ClCompile Include="..\..\x86\iIPU.cpp" />
+    <ClCompile Include="..\..\Memory.cpp" />
+    <ClCompile Include="..\..\MemoryVM.cpp" />
+    <ClCompile Include="..\..\x86\ix86-32\recVTLB.cpp" />
+    <ClCompile Include="..\..\vtlb.cpp" />
+    <ClCompile Include="..\..\Gif.cpp" />
+    <ClCompile Include="..\..\GS.cpp" />
+    <ClCompile Include="..\..\MTGS.cpp" />
+    <ClCompile Include="..\..\x86\iGS.cpp" />
+    <ClCompile Include="..\..\VU0.cpp" />
+    <ClCompile Include="..\..\VU0micro.cpp" />
+    <ClCompile Include="..\..\VU0microInterp.cpp" />
+    <ClCompile Include="..\..\VU1micro.cpp" />
+    <ClCompile Include="..\..\VU1microInterp.cpp" />
+    <ClCompile Include="..\..\VUflags.cpp" />
+    <ClCompile Include="..\..\VUmicroMem.cpp" />
+    <ClCompile Include="..\..\VUops.cpp" />
+    <ClCompile Include="..\..\x86\iVU0micro.cpp" />
+    <ClCompile Include="..\..\x86\iVU1micro.cpp" />
+    <ClCompile Include="..\..\x86\iVUmicro.cpp" />
+    <ClCompile Include="..\..\x86\iVUmicroLower.cpp" />
+    <ClCompile Include="..\..\x86\iVUmicroUpper.cpp" />
+    <ClCompile Include="..\..\x86\iVUzerorec.cpp" />
+    <ClCompile Include="..\..\x86\microVU.cpp" />
+    <ClCompile Include="..\..\x86\microVU_Lower.cpp" />
+    <ClCompile Include="..\..\x86\microVU_Tables.cpp" />
+    <ClCompile Include="..\..\x86\microVU_Upper.cpp" />
+    <ClCompile Include="..\..\DebugTools\DisR3000A.cpp" />
+    <ClCompile Include="..\..\DebugTools\DisR3000asm.cpp" />
+    <ClCompile Include="..\..\DebugTools\DisR5900.cpp" />
+    <ClCompile Include="..\..\DebugTools\DisR5900asm.cpp" />
+    <ClCompile Include="..\..\DebugTools\DisVU0Micro.cpp" />
+    <ClCompile Include="..\..\DebugTools\DisVU1Micro.cpp" />
+    <ClCompile Include="..\..\FiFo.cpp" />
+    <ClCompile Include="..\..\Hw.cpp" />
+    <ClCompile Include="..\..\HwRead.cpp" />
+    <ClCompile Include="..\..\HwWrite.cpp" />
+    <ClCompile Include="..\..\IopHw.cpp" />
+    <ClCompile Include="..\..\SPR.cpp" />
+    <ClCompile Include="..\..\x86\iHw.cpp" />
+    <ClCompile Include="..\..\x86\iPsxHw.cpp" />
+    <ClCompile Include="..\..\Sif.cpp" />
+    <ClCompile Include="..\..\Vif.cpp" />
+    <ClCompile Include="..\..\VifDma.cpp" />
+    <ClCompile Include="..\..\x86\iVif.cpp" />
+    <ClCompile Include="..\..\CDVDiso.cpp" />
+    <ClCompile Include="..\..\CDVDisodrv.cpp" />
+    <ClCompile Include="..\..\AlignedMalloc.cpp" />
+    <ClCompile Include="..\..\Console.cpp" />
+    <ClCompile Include="..\..\x86\fast_routines.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Devel|Win32'">
+      </PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="..\..\PathUtils.cpp" />
+    <ClCompile Include="..\..\Plugins.cpp" />
+    <ClCompile Include="..\SamplProf.cpp" />
+    <ClCompile Include="..\..\SaveState.cpp" />
+    <ClCompile Include="..\..\System.cpp" />
+    <ClCompile Include="..\..\ThreadTools.cpp" />
+    <ClCompile Include="..\WinCompressNTFS.cpp" />
+    <ClCompile Include="..\WinThreads.cpp" />
+    <ClCompile Include="..\..\x86\ix86\ix86.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Use</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="..\..\x86\ix86\ix86_3dnow.cpp" />
+    <ClCompile Include="..\..\x86\ix86\ix86_cpudetect.cpp" />
+    <ClCompile Include="..\..\x86\ix86\ix86_fpu.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Use</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="..\..\x86\ix86\ix86_mmx.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Use</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="..\..\x86\ix86\ix86_sse.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Use</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="..\..\x86\ix86\ix86_tools.cpp" />
+    <ClCompile Include="..\..\Stats.cpp" />
+    <ClCompile Include="..\..\TAS.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\AboutDlg.h" />
+    <ClInclude Include="..\McdsDlg.h" />
+    <ClInclude Include="..\MovieDlg.h" />
+    <ClInclude Include="..\RDebugger.h" />
+    <ClInclude Include="..\Win32.h" />
+    <ClInclude Include="..\Debugger.h" />
+    <ClInclude Include="..\resource.h" />
+    <ClInclude Include="..\..\Elfheader.h" />
+    <ClInclude Include="..\..\Misc.h" />
+    <ClInclude Include="..\..\Patch.h" />
+    <ClInclude Include="..\..\PrecompiledHeader.h" />
+    <ClInclude Include="..\..\StringUtils.h" />
+    <ClInclude Include="..\..\tinyxml\tinystr.h" />
+    <ClInclude Include="..\..\tinyxml\tinyxml.h" />
+    <ClInclude Include="..\cheats\cheats.h" />
+    <ClInclude Include="..\..\3rdparty\zlib\crc32.h" />
+    <ClInclude Include="..\..\3rdparty\zlib\deflate.h" />
+    <ClInclude Include="..\..\3rdparty\zlib\inffast.h" />
+    <ClInclude Include="..\..\3rdparty\zlib\inffixed.h" />
+    <ClInclude Include="..\..\3rdparty\zlib\inflate.h" />
+    <ClInclude Include="..\..\3rdparty\zlib\inftrees.h" />
+    <ClInclude Include="..\..\3rdparty\zlib\trees.h" />
+    <ClInclude Include="..\..\3rdparty\zlib\zconf.h" />
+    <ClInclude Include="..\..\3rdparty\zlib\zlib.h" />
+    <ClInclude Include="..\..\3rdparty\zlib\zutil.h" />
+    <ClInclude Include="..\..\Linux\ConfigDlg.h" />
+    <ClInclude Include="..\..\Linux\DebugDlg.h" />
+    <ClInclude Include="..\..\Linux\LnxMain.h" />
+    <ClInclude Include="..\..\Linux\LnxSysExec.h" />
+    <ClInclude Include="..\..\Linux\memzero.h" />
+    <ClInclude Include="..\..\rdebug\deci2.h" />
+    <ClInclude Include="..\..\rdebug\deci2_dbgp.h" />
+    <ClInclude Include="..\..\rdebug\deci2_dcmp.h" />
+    <ClInclude Include="..\..\rdebug\deci2_drfp.h" />
+    <ClInclude Include="..\..\rdebug\deci2_iloadp.h" />
+    <ClInclude Include="..\..\rdebug\deci2_netmp.h" />
+    <ClInclude Include="..\..\rdebug\deci2_ttyp.h" />
+    <ClInclude Include="..\..\x86\BaseblockEx.h" />
+    <ClInclude Include="..\..\MemoryCard.h" />
+    <ClInclude Include="..\..\Cache.h" />
+    <ClInclude Include="..\..\Counters.h" />
+    <ClInclude Include="..\..\EEregs.h" />
+    <ClInclude Include="..\..\R5900.h" />
+    <ClInclude Include="..\..\R5900OpcodeTables.h" />
+    <ClInclude Include="..\..\x86\iCOP0.h" />
+    <ClInclude Include="..\..\x86\iCore.h" />
+    <ClInclude Include="..\..\x86\iFPU.h" />
+    <ClInclude Include="..\..\x86\iMMI.h" />
+    <ClInclude Include="..\..\x86\iR5900.h" />
+    <ClInclude Include="..\..\x86\iR5900Arit.h" />
+    <ClInclude Include="..\..\x86\iR5900AritImm.h" />
+    <ClInclude Include="..\..\x86\iR5900Branch.h" />
+    <ClInclude Include="..\..\x86\iR5900Jump.h" />
+    <ClInclude Include="..\..\x86\iR5900LoadStore.h" />
+    <ClInclude Include="..\..\x86\iR5900Move.h" />
+    <ClInclude Include="..\..\x86\iR5900MultDiv.h" />
+    <ClInclude Include="..\..\x86\iR5900Shift.h" />
+    <ClInclude Include="..\..\CdRom.h" />
+    <ClInclude Include="..\..\CDVD.h" />
+    <ClInclude Include="..\..\IopBios.h" />
+    <ClInclude Include="..\..\IopBios2.h" />
+    <ClInclude Include="..\..\IopCounters.h" />
+    <ClInclude Include="..\..\IopDma.h" />
+    <ClInclude Include="..\..\IopMem.h" />
+    <ClInclude Include="..\..\IopSio2.h" />
+    <ClInclude Include="..\..\R3000A.h" />
+    <ClInclude Include="..\..\Sio.h" />
+    <ClInclude Include="..\..\x86\iR3000A.h" />
+    <ClInclude Include="..\..\IPU\coroutine.h" />
+    <ClInclude Include="..\..\Ipu\IPU.h" />
+    <ClInclude Include="..\..\Ipu\yuv2rgb.h" />
+    <ClInclude Include="..\..\Ipu\mpeg2lib\Mpeg.h" />
+    <ClInclude Include="..\..\Ipu\mpeg2lib\Vlc.h" />
+    <ClInclude Include="..\..\Memory.h" />
+    <ClInclude Include="..\..\vtlb.h" />
+    <ClInclude Include="..\..\GS.h" />
+    <ClInclude Include="..\..\VU.h" />
+    <ClInclude Include="..\..\VUflags.h" />
+    <ClInclude Include="..\..\VUmicro.h" />
+    <ClInclude Include="..\..\VUops.h" />
+    <ClInclude Include="..\..\x86\iVU0micro.h" />
+    <ClInclude Include="..\..\x86\iVU1micro.h" />
+    <ClInclude Include="..\..\x86\iVUmicro.h" />
+    <ClInclude Include="..\..\x86\iVUops.h" />
+    <ClInclude Include="..\..\x86\iVUzerorec.h" />
+    <ClInclude Include="..\..\x86\microVU.h" />
+    <ClInclude Include="..\..\x86\microVU_Tables.h" />
+    <ClInclude Include="..\..\DebugTools\Debug.h" />
+    <ClInclude Include="..\..\DebugTools\DisASM.h" />
+    <ClInclude Include="..\..\DebugTools\DisVUmicro.h" />
+    <ClInclude Include="..\..\DebugTools\DisVUops.h" />
+    <ClInclude Include="..\..\Hw.h" />
+    <ClInclude Include="..\..\IopHw.h" />
+    <ClInclude Include="..\..\SPR.h" />
+    <ClInclude Include="..\..\Sif.h" />
+    <ClInclude Include="..\..\Sifcmd.h" />
+    <ClInclude Include="..\..\Vif.h" />
+    <ClInclude Include="..\..\VifDma.h" />
+    <ClInclude Include="..\..\CDVDiso.h" />
+    <ClInclude Include="..\..\CDVDisodrv.h" />
+    <ClInclude Include="..\..\Exceptions.h" />
+    <ClInclude Include="..\..\MemcpyFast.h" />
+    <ClInclude Include="..\memzero.h" />
+    <ClInclude Include="..\..\Paths.h" />
+    <ClInclude Include="..\..\Plugins.h" />
+    <ClInclude Include="..\..\SafeArray.h" />
+    <ClInclude Include="..\..\SamplProf.h" />
+    <ClInclude Include="..\..\SaveState.h" />
+    <ClInclude Include="..\..\System.h" />
+    <ClInclude Include="..\..\Threading.h" />
+    <ClInclude Include="..\..\x86\ix86\ix86.h" />
+    <ClInclude Include="..\..\Common.h" />
+    <ClInclude Include="..\..\Stats.h" />
+    <ClInclude Include="..\..\TAS.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="..\Cdrom02.ico" />
+    <Image Include="..\..\pcsxAbout.bmp" />
+    <Image Include="..\ps2_silver.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="..\pcsx2.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="..\..\Docs\ChangeLog.txt" />
+    <Text Include="..\..\Docs\devblog.txt" />
+    <Text Include="..\..\Docs\License.txt" />
+    <Text Include="..\..\Docs\PS2Edefs.txt" />
+    <Text Include="..\..\Docs\readme 0.9.4.txt" />
+    <Text Include="..\..\Docs\readme Playground.txt" />
+    <Text Include="..\..\Docs\RemoteDebugging.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Object Include="..\..\Ipu\idct_mmx.obj" />
+  </ItemGroup>
+  <ItemGroup>
+    <MASM Include="..\..\x86\ix86-32\aVif_proc-32.asm" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="pthreads_2008.vcxproj">
+      <Project>{26511268-2902-4997-8421-ecd7055f9e28}</Project>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+    <Import Project="$(VCTargetsPath)\BuildCustomizations\masm.targets" />
+  </ImportGroup>
+</Project>
