@@ -219,16 +219,20 @@ static void TryRecoverFromGsState()
 //--TAS--//
 __forceinline void RunFrame()
 {
-	if(g_Movie.File && g_Movie.Replay)
-		fread(g_PadData[0]+2, 6, 1, g_Movie.File);
+	if (g_Movie.File && g_Movie.Replay){
+		fread(g_PadData[0] + 2, 6, 1, g_Movie.File);
+		fread(g_PadData[1] + 2, 6, 1, g_Movie.File);
+	}
 
 	if(CHECK_EEREC)
 		recExecute();
 	else
 		Cpu->Execute();
 
-	if(g_Movie.File && !g_Movie.Replay)
-		fwrite(g_PadData[0]+2, 6, 1, g_Movie.File);
+	if (g_Movie.File && !g_Movie.Replay){
+		fwrite(g_PadData[0] + 2, 6, 1, g_Movie.File);
+		fwrite(g_PadData[1] + 2, 6, 1, g_Movie.File);
+	}
 
 	g_Movie.FrameNum++;
 

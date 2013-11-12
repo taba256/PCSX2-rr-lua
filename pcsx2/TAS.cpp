@@ -65,7 +65,7 @@ void SaveState::movieFreeze() {
 	if( g_Movie.File ) {
 		char* MovieData;
 		Freeze(g_Movie.FrameNum);
-		u32 MovieSize = g_Movie.FrameNum*6;
+		u32 MovieSize = g_Movie.FrameNum*6*2;
 
 		if( IsLoading() ) {
 			if( !g_Movie.ReadOnly ) {

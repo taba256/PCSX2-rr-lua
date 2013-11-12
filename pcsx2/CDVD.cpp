@@ -1308,7 +1308,7 @@ static uint cdvdStartSeek( uint newsector )
 {
 	cdvd.SeekToSector = newsector;
 
-	uint delta = abs(cdvd.SeekToSector - cdvd.Sector);
+	uint delta = abs((int)(cdvd.SeekToSector - cdvd.Sector));
 	uint seektime;
 
 	cdvd.Ready = 0;
