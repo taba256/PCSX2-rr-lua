@@ -41,6 +41,7 @@
 
 #include "TAS.h" // TAS
 #include "MovieDlg.h" // TAS
+#include "LuaDlg.h" // TAS
 
 unsigned int langsMax;
 static bool m_RestartGui = false;	// used to signal a GUI restart after DestroyWindow()
@@ -778,6 +779,13 @@ LRESULT WINAPI MainWndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
 			case ID_MOVIE_STOP:
 				MovieEnd();
 				break;
+
+			case ID_MOVIE_LUAOPEN:
+				if (!LuaConsoleHWnd){
+					//LuaConsoleHWnd = CreateDialog(gApp.hInstance, MAKEINTRESOURCE(IDD_LUA), hWnd, DlgLuaScriptDialog);
+					CreateLuaWindow();
+				}
+				break;
 			//-------//
 
 			case ID_HELP_ABOUT:
@@ -1067,7 +1075,8 @@ void CreateMainMenu() {
 
 	//--TAS--//
 	ADDSUBMENU(0, _("Mo&vie"));
-	ADDMENUITEM(0,_("&Stop"), ID_MOVIE_STOP);
+	ADDMENUITEM(0, _("New &Lua Script Window"), ID_MOVIE_LUAOPEN);
+	ADDMENUITEM(0, _("&Stop"), ID_MOVIE_STOP);
 	ADDMENUITEM(0,_("&Play"), ID_MOVIE_PLAY);
 	ADDMENUITEM(0,_("&Record"), ID_MOVIE_RECORD);
 	//-------//

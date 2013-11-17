@@ -109,6 +109,9 @@
     <Filter Include="Dynarec Emitter">
       <UniqueIdentifier>{1ffb006c-4bc3-417d-aee6-e17606a21134}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Lua">
+      <UniqueIdentifier>{d386e9d9-e25e-486d-a28b-c47d47c0cf8d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\AboutDlg.cpp">
@@ -638,6 +641,10 @@
     </ClCompile>
     <ClCompile Include="..\..\Stats.cpp" />
     <ClCompile Include="..\..\TAS.cpp" />
+    <ClCompile Include="..\Lua.cpp" />
+    <ClCompile Include="..\LuaDlg.cpp">
+      <Filter>GUI</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\AboutDlg.h">
@@ -976,6 +983,25 @@
     <ClInclude Include="..\..\Common.h" />
     <ClInclude Include="..\..\Stats.h" />
     <ClInclude Include="..\..\TAS.h" />
+    <ClInclude Include="..\..\Lua\lua.hpp">
+      <Filter>Lua</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Lua\lua.h">
+      <Filter>Lua</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Lua\luaconf.h">
+      <Filter>Lua</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Lua\lualib.h">
+      <Filter>Lua</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Lua\lauxlib.h">
+      <Filter>Lua</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Lua.h" />
+    <ClInclude Include="..\LuaDlg.h">
+      <Filter>GUI</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="..\Cdrom02.ico">

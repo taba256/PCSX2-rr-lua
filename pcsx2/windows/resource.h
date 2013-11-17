@@ -45,6 +45,7 @@
 #define IDD_CONF_MEMCARD                180
 #define IDD_RECORD                      181 // TAS
 #define IDD_PLAY                        182 // TAS
+#define IDD_LUA                         183 // TAS
 #define IDC_MEM_SCROLL                  1001
 #define IDC_EXECBP                      1001
 #define IDC_CNTBP                       1002
@@ -665,6 +666,14 @@
 #define IDC_MOVIE_TIME1                 1807
 #define IDC_MOVIE_TIME2                 1808
 #define IDC_MOVIE_INFO3                 1809
+#define IDC_BUTTON_LUABROWSE            1810
+#define IDC_BUTTON_LUARUN               1811
+#define IDC_BUTTON_LUASTOP              1812
+#define IDC_EDIT_LUAPATH                1813
+#define IDC_LUACONSOLE                  1814
+#define IDC_BUTTON_LUAEDIT              1815
+#define IDC_LUACONSOLE_CHOOSEFONT       1816
+#define IDC_LUACONSOLE_CLEAR            1817
 #define ID_FILEOPEN                     40001
 #define ID_DEBUG_MEMORY_DUMP            40002
 #define ID_FILE_EXIT                    40003
@@ -740,6 +749,7 @@
 #define ID_MOVIE_RECORD					40200
 #define ID_MOVIE_PLAY					40201
 #define ID_MOVIE_STOP					40202
+#define ID_MOVIE_LUAOPEN				40203
 #define ID_LANGS                        50000
 
 // Next default values for new objects

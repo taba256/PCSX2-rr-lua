@@ -29,6 +29,7 @@
 #include "iR5900.h"
 
 #include "TAS.h" // TAS
+#include "Lua.h" // Lua
 
 extern void gsPostVsyncEnd( bool ); // TAS
 
@@ -228,6 +229,10 @@ __forceinline void RunFrame()
 		recExecute();
 	else
 		Cpu->Execute();
+
+	//--Lua--//
+	PCSX2LuaFrameBoundary();
+	//-------//
 
 	if (g_Movie.File && !g_Movie.Replay){
 		fwrite(g_PadData[0] + 2, 6, 1, g_Movie.File);

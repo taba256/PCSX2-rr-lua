@@ -1,7 +1,7 @@
 #PCSX2-rr-lua
 
 ---
-PCSX2-rr-luaは、PCSX2-rrをベースにTAS機能の安定化やLuaスクリプト機能の追加など、なんかそれっぽく改造したものです。
+PCSX2-rr-luaは、[PCSX2-rr][1]をベースにTAS機能の安定化やLuaスクリプト機能の追加など、なんかそれっぽく改造したものです。  
 (ムービーファイルやステートセーブの互換性は)ないです
 
 ###現状:
@@ -12,3 +12,5 @@ PCSX2-rr-luaは、PCSX2-rrをベースにTAS機能の安定化やLuaスクリプ
 
 ###ToDo:
 * Lua機能の追加
+
+[1]: http://code.google.com/p/pcsx2-rr/ "PCSX2-rr"

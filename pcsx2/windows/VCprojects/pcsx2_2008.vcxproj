@@ -94,6 +94,7 @@
       <AdditionalOptions>/MACHINE:I386 %(AdditionalOptions)</AdditionalOptions>
       <OutputFile>$(OutDir)$(ProjectName).exe</OutputFile>
       <ImageHasSafeExceptionHandlers>false</ImageHasSafeExceptionHandlers>
+      <AdditionalDependencies>$(SolutionDir)pcsx2\lua\lua52d.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Devel|Win32'">
@@ -151,6 +152,7 @@
       <ProgramDatabaseFile>$(TargetDir)$(TargetName).pdb</ProgramDatabaseFile>
       <ImageHasSafeExceptionHandlers>false</ImageHasSafeExceptionHandlers>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>$(SolutionDir)pcsx2\lua\lua52.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
@@ -160,6 +162,8 @@
     <ClCompile Include="..\CpuDlg.cpp" />
     <ClCompile Include="..\HacksDlg.cpp" />
     <ClCompile Include="..\ini.cpp" />
+    <ClCompile Include="..\Lua.cpp" />
+    <ClCompile Include="..\LuaDlg.cpp" />
     <ClCompile Include="..\McdConfigDlg.cpp" />
     <ClCompile Include="..\McdManagerDlg.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
@@ -574,7 +578,14 @@
     <ClCompile Include="..\..\TAS.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\Lua\lauxlib.h" />
+    <ClInclude Include="..\..\Lua\lua.h" />
+    <ClInclude Include="..\..\Lua\lua.hpp" />
+    <ClInclude Include="..\..\Lua\luaconf.h" />
+    <ClInclude Include="..\..\Lua\lualib.h" />
     <ClInclude Include="..\AboutDlg.h" />
+    <ClInclude Include="..\Lua.h" />
+    <ClInclude Include="..\LuaDlg.h" />
     <ClInclude Include="..\McdsDlg.h" />
     <ClInclude Include="..\MovieDlg.h" />
     <ClInclude Include="..\RDebugger.h" />
