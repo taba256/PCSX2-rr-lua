@@ -662,6 +662,9 @@
 #define IDC_MOVIE_READONLY              1804
 #define IDC_MOVIE_INFO1                 1805
 #define IDC_MOVIE_INFO2                 1806
+#define IDC_MOVIE_TIME1                 1807
+#define IDC_MOVIE_TIME2                 1808
+#define IDC_MOVIE_INFO3                 1809
 #define ID_FILEOPEN                     40001
 #define ID_DEBUG_MEMORY_DUMP            40002
 #define ID_FILE_EXIT                    40003

@@ -13,6 +13,7 @@ struct MovieInfo {
 	bool  Replay;
 	bool  ReadOnly;
 	char  Filename[256];
+	cdvdRTC BootTime;
 };
 
 extern MovieInfo g_Movie;

@@ -33,6 +33,7 @@ bool MovieRecord(char* File) {
 		g_Movie.Rerecs = 0;
 		fwrite(&g_Movie.FrameMax, 4, 1, g_Movie.File);
 		fwrite(&g_Movie.Rerecs, 4, 1, g_Movie.File);
+		fwrite(&g_Movie.BootTime, sizeof(cdvdRTC), 1, g_Movie.File);
 		g_Movie.Replay = false;
 		g_Movie.ReadOnly = false;
 		SysClose();
@@ -51,6 +52,7 @@ bool MoviePlay(char* File) {
 		strcpy(g_Movie.Filename, File);
 		fread(&g_Movie.FrameMax, 4, 1, g_Movie.File);
 		fread(&g_Movie.Rerecs, 4, 1, g_Movie.File);
+		fread(&g_Movie.BootTime, sizeof(cdvdRTC), 1, g_Movie.File);
 		g_Movie.Replay = true;
 		SysClose();
 		SysInit();

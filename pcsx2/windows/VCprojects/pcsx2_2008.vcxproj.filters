@@ -1026,4 +1026,7 @@
       <Filter>Ps2\Vif\Dynarec</Filter>
     </MASM>
   </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\..\README.md" />
+  </ItemGroup>
 </Project>

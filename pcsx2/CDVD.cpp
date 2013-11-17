@@ -28,6 +28,8 @@
 #include "PsxCommon.h"
 #include "CDVDiso.h"
 
+#include "TAS.h" // TAS
+
 static cdvdStruct cdvd;
 static int cdCaseopen;
 
@@ -783,6 +785,11 @@ void cdvdReset()
 	cdvd.RTC.day = (u8)(st.wDay);
 	cdvd.RTC.month = (u8)(st.wMonth);
 	cdvd.RTC.year = (u8)(st.wYear - 2000);
+	//-----TAS-----//
+	if(g_Movie.File){
+		cdvd.RTC=g_Movie.BootTime;
+	}
+	//-------------//
 #else
     cdvd.RTC.second = ptlocal->tm_sec;
     cdvd.RTC.minute = ptlocal->tm_min;
