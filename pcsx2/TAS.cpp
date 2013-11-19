@@ -75,13 +75,14 @@ void SaveState::movieFreeze() {
 				rewind(g_Movie.File);
 				fwrite(&g_Movie.FrameNum, 4, 1, g_Movie.File);
 				fwrite(&g_Movie.Rerecs, 4, 1, g_Movie.File);
+				fwrite(&g_Movie.BootTime, sizeof(cdvdRTC), 1, g_Movie.File);
 				FreezeMem(MovieData, MovieSize);
 				fwrite(MovieData, MovieSize, 1, g_Movie.File);
 				free(MovieData);
 				g_Movie.Replay = false;
 				g_Movie.Rerecs++;
 			} else {
-				fseek(g_Movie.File, 8+MovieSize, SEEK_SET);
+				fseek(g_Movie.File, 8 + sizeof(cdvdRTC)+MovieSize, SEEK_SET);
 				g_Movie.Replay = true;
 			}
 		} else {
@@ -89,6 +90,7 @@ void SaveState::movieFreeze() {
 			rewind(g_Movie.File);
 			fwrite(&g_Movie.FrameMax, 1, 4, g_Movie.File);
 			fwrite(&g_Movie.Rerecs, 1, 4, g_Movie.File);
+			fwrite(&g_Movie.BootTime, sizeof(cdvdRTC), 1, g_Movie.File);
 			fread(MovieData, 1, MovieSize, g_Movie.File);
 			FreezeMem(MovieData, MovieSize);
 			free(MovieData);

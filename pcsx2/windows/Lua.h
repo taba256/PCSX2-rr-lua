@@ -1,6 +1,7 @@
 #pragma once
 
 #include "PsxCommon.h"
+#include "LuaDlg.h"
 
 enum LuaCallID
 {
@@ -16,3 +17,7 @@ int PCSX2LoadLuaCode(const char*luaScriptName);
 void PCSX2LuaFrameBoundary(void);
 void PCSX2LuaStop();
 char*PCSX2GetLuaScriptName();
+void lockLuamutex();
+void unlockLuamutex();
+void Luajoypadset();
+bool usingjoypad(int port);

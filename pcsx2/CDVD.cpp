@@ -642,22 +642,36 @@ s32 cdvdReadSubQ(s32 lsn, cdvdSubQ* subq)
 
 s32 cdvdCtrlTrayOpen()
 {
+	/*
 	s32 ret = CDVDctrlTrayOpen();
 	if(ret == -1)	ret = 0x80;
 	return ret;
+	*/
+	cdvd.Status = 0x01;
+	cdvd.Ready = 0x00;
+	return 0;
 }
 
 s32 cdvdCtrlTrayClose()
 {
+	/*
 	s32 ret = CDVDctrlTrayClose();
 	if(ret == -1)	ret = 0x80;
 	return ret;
+	*/
+	cdvd.Status = 0x0A;
+	cdvd.Ready = 0x40;
+	return 0; // needs to be 0 for success according to homebrew test "CDVD"
 }
 
 // Modified by (efp) - 16/01/2006
 // checks if tray was opened since last call to this func
 s32 cdvdGetTrayStatus()
 {
+	if (cdvd.Status == 0x01)//CDVD_STATUS_TRAY_OPEN
+		return 1;
+	return 0;
+	/*
 	s32 ret = CDVDgetTrayStatus();
 	// get current tray state
 	if (cdCaseopen)  return(CDVD_TRAY_OPEN);
@@ -665,6 +679,7 @@ s32 cdvdGetTrayStatus()
 	
 	if (ret == -1)  return(CDVD_TRAY_CLOSE);
 	return(ret);
+	*/
 }
 
 // Note: Is tray status being kept as a var here somewhere?

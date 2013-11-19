@@ -22,6 +22,7 @@
 #include "MemoryCard.h"
 
 #include "TAS.h" // TAS
+#include "windows/lua.h" // Lua
 
 _sio sio;
 
@@ -141,11 +142,15 @@ void SIO_CommandWrite(u8 value,int way) {
 				case 0x2002: sio.packetsize ++; sio.buf[sio.parp] = PAD2poll(value); break;
 			}
 			
+			// Lua
+			if (usingjoypad((sio.CtrlReg & 0x2000) >> 13) && (sio.parp>2)){
+				sio.buf[sio.parp] = g_PadData[(sio.CtrlReg & 0x2000) >> 13][sio.parp - 1];
+			}
 			//--TAS--//
 			if (g_Movie.File && g_Movie.Replay && (sio.parp>2)) {
-				sio.buf[sio.parp] = g_PadData[(sio.CtrlReg&0x2000)>>13][sio.parp-1];
+				sio.buf[sio.parp] = g_PadData[(sio.CtrlReg & 0x2000) >> 13][sio.parp - 1];
 			} else {
-				g_PadData[(sio.CtrlReg&0x2000)>>13][sio.parp-1] = sio.buf[sio.parp];
+				g_PadData[(sio.CtrlReg & 0x2000) >> 13][sio.parp - 1] = sio.buf[sio.parp];
 			}
 			//-------//
 			

@@ -141,4 +141,7 @@ void cdvdWrite17(u8 rt);
 void cdvdWrite18(u8 rt);
 void cdvdWrite3A(u8 rt);
 
+s32 cdvdCtrlTrayOpen();
+s32 cdvdCtrlTrayClose();
+s32 cdvdGetTrayStatus();
 #endif /* __CDVD_H__ */

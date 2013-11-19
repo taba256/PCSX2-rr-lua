@@ -9,6 +9,7 @@ HFONT hFont = NULL;
 LOGFONT LuaConsoleLogFont;
 HWND hDmyWnd = NULL;
 HWND hLuaDlg = NULL;
+std::string consoleputstring("");
 
 struct ControlLayoutInfo
 {
@@ -43,52 +44,43 @@ struct {
 	ControlLayoutState layoutState[numControlLayoutInfos];
 } windowInfo;
 
+//  文字列を置換する
+std::string Replace(std::string String1, std::string String2, std::string String3)
+{
+	std::string::size_type  Pos(String1.find(String2));
+
+	while (Pos != std::string::npos)
+	{
+		String1.replace(Pos, String2.length(), String3);
+		Pos = String1.find(String2, Pos + String3.length());
+	}
+
+	return String1;
+}
+
+/*
+	Runボタンを押すと同時にコンソールに出力しようとすると、デッドロックで死にます
+	出力したい文字列を一旦保存して、PostMessageを投げて後で出力します
+	うっかりSendMessageにするとしんでしまいます^q^
+*/
 void PrintToWindowConsole(const char* str){
-	if (!LuaConsoleHWnd)
+	if (!hLuaDlg)
 		return;
-	HWND hConsole = LuaConsoleHWnd;
-
-	int length = GetWindowTextLength(hConsole);
-	if (length >= 250000)
-	{
-		// discard first half of text if it's getting too long
-		SendMessage(hConsole, EM_SETSEL, 0, length / 2);
-		SendMessage(hConsole, EM_REPLACESEL, false, (LPARAM)"");
-		length = GetWindowTextLength(hConsole);
-	}
-	SendMessage(hConsole, EM_SETSEL, length, length);
-
-	//LuaPerWindowInfo& info = LuaWindowInfo[hDlg];
-
-	{
-		SendMessage(hConsole, EM_REPLACESEL, false, (LPARAM)str);
-	}
+	if (consoleputstring.empty())
+		PostMessage(hLuaDlg, WM_COMMAND, IDC_LUACONSOLE_UPDATE, 0);
+	//consoleputstring += str;
+	consoleputstring.append(str);
 }
-void PrintToWindowConsole(int hDlgAsInt, const char* str)
-{
-	HWND hDlg = (HWND)hDlgAsInt;
-	HWND hConsole = GetDlgItem(hDlg, IDC_LUACONSOLE);
-
-	int length = GetWindowTextLength(hConsole);
-	if (length >= 250000)
-	{
-		// discard first half of text if it's getting too long
-		SendMessage(hConsole, EM_SETSEL, 0, length / 2);
-		SendMessage(hConsole, EM_REPLACESEL, false, (LPARAM)"");
-		length = GetWindowTextLength(hConsole);
-	}
-	SendMessage(hConsole, EM_SETSEL, length, length);
-
-	//LuaPerWindowInfo& info = LuaWindowInfo[hDlg];
-
-	{
-		SendMessage(hConsole, EM_REPLACESEL, false, (LPARAM)str);
-	}
+void ClearWindowConsole(){
+	if (!hLuaDlg)
+		return;
+	consoleputstring.clear();
+	PostMessage(hLuaDlg, WM_COMMAND, IDC_LUACONSOLE_CLEAR, 0);
 }
 
-void WinLuaOnStart(int hDlgAsInt)
+void WinLuaOnStart()
 {
-	HWND hDlg = (HWND)hDlgAsInt;
+	HWND hDlg = hLuaDlg;
 	//LuaPerWindowInfo& info = LuaWindowInfo[hDlg];
 	//info.started = true;
 	EnableWindow(GetDlgItem(hDlg, IDC_BUTTON_LUABROWSE), false); // disable browse while running because it misbehaves if clicked in a frameadvance loop
@@ -98,9 +90,9 @@ void WinLuaOnStart(int hDlgAsInt)
 	//      Show_Genesis_Screen(HWnd); // otherwise we might never show the first thing the script draws
 }
 
-void WinLuaOnStop(int hDlgAsInt)
+void WinLuaOnStop()
 {
-	HWND hDlg = (HWND)hDlgAsInt;
+	HWND hDlg = hLuaDlg;
 	//LuaPerWindowInfo& info = LuaWindowInfo[hDlg];
 
 	HWND prevWindow = GetActiveWindow();
@@ -179,6 +171,8 @@ INT_PTR CALLBACK DlgLuaScriptDialog(HWND hDlg, UINT msg, WPARAM wParam, LPARAM l
 						  SystemParametersInfo(SPI_GETICONTITLELOGFONT, sizeof(LOGFONT), &LuaConsoleLogFont, 0); // reset with an acceptable font
 
 						  LuaConsoleHWnd = GetDlgItem(hDlg, IDC_LUACONSOLE);
+						  consoleputstring.clear();
+						  consoleputstring.reserve(250000);
 						  return true;
 	}       break;
 
@@ -260,17 +254,20 @@ INT_PTR CALLBACK DlgLuaScriptDialog(HWND hDlg, UINT msg, WPARAM wParam, LPARAM l
 
 		case IDC_BUTTON_LUARUN:
 		{
-								  //if (!g_Movie.Paused)
+								  if (!g_ReturnToGui)
 								  {
+									  consoleputstring.clear();
 									  char filename[MAX_PATH];
 									  GetDlgItemText(hDlg, IDC_EDIT_LUAPATH, filename, MAX_PATH);
-									  PCSX2LoadLuaCode(filename);
+									  if(PCSX2LoadLuaCode(filename))
+										  WinLuaOnStart();
 								  }
 		}       break;
 
 		case IDC_BUTTON_LUASTOP:
 		{
 								   PCSX2LuaStop();
+								   WinLuaOnStop();
 		}       break;
 
 		case IDC_BUTTON_LUAEDIT:
@@ -356,7 +353,36 @@ INT_PTR CALLBACK DlgLuaScriptDialog(HWND hDlg, UINT msg, WPARAM wParam, LPARAM l
 		{
 									 SetWindowText(GetDlgItem(hDlg, IDC_LUACONSOLE), "");
 		}       break;
-		}
+		case IDC_LUACONSOLE_UPDATE:
+		{
+									  /*排他制御してやらないと、出力したい文字列が途切れたりしてしまうのです。。。*/
+									  lockLuamutex();
+									  if (!LuaConsoleHWnd || consoleputstring.empty()){
+										  unlockLuamutex();
+										  break;
+									  }
+									  HWND hConsole = LuaConsoleHWnd;
+
+									  int length = GetWindowTextLength(hConsole);
+									  if (length >= 250000)
+									  {
+										  // discard first half of text if it's getting too long
+										  SendMessage(hConsole, EM_SETSEL, 0, length / 2);
+										  SendMessage(hConsole, EM_REPLACESEL, false, (LPARAM)"");
+										  length = GetWindowTextLength(hConsole);
+									  }
+									  SendMessage(hConsole, EM_SETSEL, length, length);
+
+									  //LuaPerWindowInfo& info = LuaWindowInfo[hDlg];
+									  {
+										  consoleputstring = Replace(consoleputstring, "\n", "\r\n");
+										  SendMessage(hConsole, EM_REPLACESEL, false, (LPARAM)consoleputstring.c_str());
+									  }
+									  consoleputstring.clear();
+									  unlockLuamutex();
+		}		break;
+
+		} // switch (LOWORD(wParam))
 		break;
 
 	case WM_CLOSE: {
@@ -398,6 +424,11 @@ INT_PTR CALLBACK DlgLuaScriptDialog(HWND hDlg, UINT msg, WPARAM wParam, LPARAM l
 
 }
 
+/*
+	PCSX2-rrではゲームを起動するとメインのメッセージループが止まってしまうので、別スレッドで独自に回してやる必要がある
+	別スレッドでダミーのウィンドウを作って、子としてダイアログを作る
+	なお別スレッドで動かすため、排他制御やデッドロック対策が必要。Shit!
+	*/
 pthread_t thread;
 void* _CreateLuaWindow(void*param){
 	MSG msg;

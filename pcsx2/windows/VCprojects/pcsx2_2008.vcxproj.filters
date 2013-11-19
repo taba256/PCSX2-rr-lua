@@ -1054,5 +1054,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\..\README.md" />
+    <None Include="..\..\..\luareadme.md" />
   </ItemGroup>
 </Project>

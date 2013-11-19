@@ -220,6 +220,11 @@ static void TryRecoverFromGsState()
 //--TAS--//
 __forceinline void RunFrame()
 {
+	//--Lua--//
+	CallRegisteredLuaFunctions(LUACALL_BEFOREEMULATION);
+	Luajoypadset();
+	//-------//
+
 	if (g_Movie.File && g_Movie.Replay){
 		fread(g_PadData[0] + 2, 6, 1, g_Movie.File);
 		fread(g_PadData[1] + 2, 6, 1, g_Movie.File);
@@ -230,14 +235,15 @@ __forceinline void RunFrame()
 	else
 		Cpu->Execute();
 
-	//--Lua--//
-	PCSX2LuaFrameBoundary();
-	//-------//
-
 	if (g_Movie.File && !g_Movie.Replay){
 		fwrite(g_PadData[0] + 2, 6, 1, g_Movie.File);
 		fwrite(g_PadData[1] + 2, 6, 1, g_Movie.File);
 	}
+
+	//--Lua--//
+	PCSX2LuaFrameBoundary();
+	CallRegisteredLuaFunctions(LUACALL_AFTEREMULATION);
+	//-------//
 
 	g_Movie.FrameNum++;
 

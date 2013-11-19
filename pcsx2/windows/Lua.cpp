@@ -2,6 +2,8 @@
 #include "LuaDlg.h"
 #include "Lua.h"
 #include "Lua\lua.hpp"
+#include "../TAS.h"
+#include <mutex>
 
 //スクリプト名
 static char *luaScriptName=nullptr;
@@ -9,15 +11,29 @@ static char *luaScriptName=nullptr;
 //lua実行中？
 static bool luaRunning = false;
 
-lua_State*LUA = nullptr;
-int lua_joypads_used = 0;
+static lua_State*LUA = NULL;
+static int lua_joypads_used = 0;
+static unsigned char padData[2][6] = { 0 };
 static bool frameBoundary = false;
 static bool frameAdvanceWaiting = false;
-int numTries = 0;
+static int numTries = 0;
+static const char *luaCallIDStrings[] = {
+	"CALL_BEFOREEMULATION",
+	"CALL_AFTEREMULATION",
+	"CALL_BEFOREEXIT"
+};
+static const char *button_mappings[] = {
+	"select", "l3", "r3", "start", "up", "right", "down", "left",
+	"l2", "r2", "l1", "r1", "triangle", "circle", "cross", "square"
+};
+static const char *analog_mappings[] = {
+	"rx", "ry", "lx", "ly"
+};
 
 static const char *frameAdvanceThread = "PCSX2.FrameAdvance";
+static std::recursive_timed_mutex scriptExecMtx;
 
-bool DemandLua()
+static bool DemandLua()
 {
 	return true;
 #ifdef _WIN32
@@ -34,18 +50,29 @@ bool DemandLua()
 #endif
 }
 
-static int L_print(lua_State*L){
+/*emu/pcsx2 functions*/
+//print
+static int print(lua_State*L){
 	string str = lua_tostring(L, 1);
 	PrintToWindowConsole(str.c_str());
 	return 0;
 }
-
-static int printerror(lua_State *L, int idx)
-{
-	PrintToWindowConsole(lua_tostring(L, lua_gettop(L)));
+//clear
+static int consoleClear(lua_State*L){
+	ClearWindowConsole();
 	return 0;
 }
-
+//getframecount
+static int L_getFrameCount(lua_State*L){
+	lua_pushinteger(L, g_Movie.FrameNum);
+	return 1;
+}
+//pause
+static int L_emupause(lua_State*L){
+	g_Movie.Paused = !!luaL_checkint(L, 1);
+	return 0;
+}
+//frameadvance
 static int pcsx2_frameadvance(lua_State *L)
 {
 	// We're going to sleep for a frame-advance. Take notes.
@@ -61,6 +88,190 @@ static int pcsx2_frameadvance(lua_State *L)
 
 	// It's actually rather disappointing...
 }
+//register関連
+static int registerfunction(lua_State*L, LuaCallID type){
+	if (!lua_isnil(L, 1))
+		luaL_checktype(L, 1, LUA_TFUNCTION);
+	lua_settop(L, 1);
+	lua_getfield(L, LUA_REGISTRYINDEX, luaCallIDStrings[type]);
+	lua_insert(L, 1);
+	lua_setfield(L, LUA_REGISTRYINDEX, luaCallIDStrings[type]);
+	return 1;
+}
+static int L_registerbefore(lua_State*L){
+	return registerfunction(L, LUACALL_BEFOREEMULATION);
+}
+static int L_registerafter(lua_State*L){
+	return registerfunction(L, LUACALL_AFTEREMULATION);
+}
+static int L_registerexit(lua_State*L){
+	return registerfunction(L, LUACALL_BEFOREEXIT);
+}
+
+/*memory read/write functions*/
+static u32 readMemory(lua_State*L, int size){
+	int addr = luaL_checkint(L, 1);
+	if (!PS2MEM_BASE || addr<0 || addr>(0x2000000 - size)){
+		return 0;
+	}
+	u32 out = 0;
+	out = *(u32*)(PS2MEM_BASE + addr);
+	return out;
+}
+static int L_getDWORD(lua_State*L){
+	u32 m;
+	m = readMemory(L, 4);
+	lua_pushnumber(L, m);
+	return 1;
+}
+static int L_getWORD(lua_State*L){
+	u16 m;
+	m = readMemory(L, 2);
+	lua_pushinteger(L, m);
+	return 1;
+}
+static int L_getBYTE(lua_State*L){
+	u8 m;
+	m = readMemory(L, 1);
+	lua_pushinteger(L, m);
+	return 1;
+}
+static int L_getDWORDsigned(lua_State*L){
+	s32 m;
+	m = readMemory(L, 4);
+	lua_pushinteger(L, m);
+	return 1;
+}
+static int L_getWORDsigned(lua_State*L){
+	s16 m;
+	m = readMemory(L, 2);
+	lua_pushinteger(L, m);
+	return 1;
+}
+static int L_getBYTEsigned(lua_State*L){
+	s8 m;
+	m = readMemory(L, 1);
+	lua_pushinteger(L, m);
+	return 1;
+}
+static int L_getfloat(lua_State*L){
+	int addr = luaL_checkint(L, 1);
+	if (!PS2MEM_BASE || addr<0 || addr>(0x2000000 - 4)){
+		return 0;
+	}
+	float out = 0;
+	out = *(float*)(PS2MEM_BASE + addr);
+	lua_pushnumber(L, out);
+	return 1;
+}
+static int writeMemory(lua_State*L, int size){
+	int addr = luaL_checkint(L, 1);
+	if (!PS2MEM_BASE || addr<0 || addr>(0x2000000 - size)){
+		return 0;
+	}
+	int src = luaL_checkinteger(L, 2);
+	memcpy(PS2MEM_BASE + addr, &src, size);
+	return 0;
+}
+static int L_setDWORD(lua_State*L){
+	return writeMemory(L, 4);
+}
+static int L_setWORD(lua_State*L){
+	return writeMemory(L, 2);
+}
+static int L_setBYTE(lua_State*L){
+	return writeMemory(L, 1);
+}
+static int L_setfloat(lua_State*L){
+	int addr = luaL_checkint(L, 1);
+	if (!PS2MEM_BASE || addr<0 || addr>(0x2000000 - 4)){
+		return 0;
+	}
+	float src = luaL_checknumber(L, 2);
+	*(float*)(PS2MEM_BASE + addr) = src;
+	return 0;
+}
+
+/*Joypad functions*/
+int L_getJoyPad(lua_State*L){
+	int which = luaL_checkint(L, 1);
+	--which;
+	if (which<0 || which>1){
+		return 0;
+	}
+	lua_newtable(L);
+	u16 buttons = g_PadData[which][2] | (g_PadData[which][3] << 8);
+	buttons = ~buttons;//マイナス形式なのでbit反転
+	for (int i=0; buttons; buttons >>= 1,i++){
+		if (buttons & 1){
+			lua_pushboolean(L, 1);
+			lua_setfield(L, -2, button_mappings[i]);
+		}
+	}
+	for (int i = 0; i < 4; i++){
+		lua_pushinteger(L, g_PadData[which][4+i]);
+		lua_setfield(L, -2, analog_mappings[i]);
+	}
+	return 1;
+}
+int L_setJoyPad(lua_State*L){
+	int which = luaL_checkint(L, 1);
+	--which;
+	if (which<0 || which>1){
+		return 0;
+	}
+	luaL_checktype(L, 2, LUA_TTABLE);
+	lua_joypads_used |= 1 << which;
+	u16 buttons = 0;
+	u8 analog[4] = {127,127,127,127};
+	for (int i = 0; i < 16; i++){
+		lua_getfield(L, 2, button_mappings[i]);
+		if (!lua_isnil(L, -1)){
+			bool pressed = lua_toboolean(L, -1) != 0;
+			if (pressed)
+				buttons |= 1 << i;
+			else
+				buttons &= ~(1 << i);
+		}
+		lua_pop(L, 1);
+	}
+	buttons = ~buttons;
+	padData[which][0] = buttons & 0xff;
+	padData[which][1] = (buttons >> 8) & 0xff;
+	//analog
+	for (int i = 0; i < 4; i++){
+		lua_getfield(L, 2, analog_mappings[i]);
+		if (!lua_isnil(L, -1)){
+			unsigned char ana = lua_tointeger(L, -1) != 0;
+			padData[which][2 + i] = ana;
+		}
+		else{
+			padData[which][2 + i] = 127;
+		}
+		lua_pop(L, 1);
+	}
+	return 0;
+}
+
+/*experimental functions*/
+int L_trayopen(lua_State*L){
+	lua_pushinteger(L, cdvdCtrlTrayOpen());
+	return 1;
+}
+int L_trayclose(lua_State*L){
+	lua_pushinteger(L, cdvdCtrlTrayClose());
+	return 1;
+}
+int L_traystatus(lua_State*L){
+	lua_pushinteger(L, cdvdGetTrayStatus());
+	return 1;
+}
+
+static int printerror(lua_State *L, int idx)
+{
+	PrintToWindowConsole(lua_tostring(L, lua_gettop(L)));
+	return 0;
+}
 
 /**
 * Resets emulator speed / pause states after script exit.
@@ -73,27 +284,67 @@ static void PCSX2LuaOnStop(void)
 	// systemSetPause(true);
 }
 
+//PCSX2LoadLuaCodeでLua側に登録します
 static const struct luaL_Reg emufunctions[] = {
-	{ "print", L_print },
-//	{ "cls", L_clearConsole },
+	{ "print", print },
+	{ "clear", consoleClear },
 	{ "frameadvance", pcsx2_frameadvance },
-//	{ "getframecount", L_getFrameCount },
-//	{ "pause", L_emupause },
-//	{ "registerbefore", L_registerbefore },
-//	{ "registerafter", L_registerafter },
-//	{ "registerexit", L_registerexit },
+	{ "getframecount", L_getFrameCount },
+	{ "pause", L_emupause },
+	{ "registerbefore", L_registerbefore },
+	{ "registerafter", L_registerafter },
+	{ "registerexit", L_registerexit },
+	{ NULL, NULL }
+};
+static const struct luaL_Reg memoryfunctions[] = {
+	{ "readdword", L_getDWORD },
+	{ "readdwordunsigned", L_getDWORD },
+	{ "readlong", L_getDWORD },
+	{ "readlongunsigned", L_getDWORD },
+	{ "readword", L_getWORD },
+	{ "readwordunsigned", L_getWORD },
+	{ "readshort", L_getWORD },
+	{ "readshortunsigned", L_getWORD },
+	{ "readbyte", L_getBYTE },
+	{ "readbyteunsigned", L_getBYTE },
+	{ "readdwordsigned", L_getDWORDsigned },
+	{ "readlongsigned", L_getDWORDsigned },
+	{ "readwordsigned", L_getWORDsigned },
+	{ "readshortsigned", L_getWORDsigned },
+	{ "readbytesigned", L_getBYTEsigned },
+	{ "readfloat", L_getfloat },
+	{ "writedword", L_setDWORD },
+	{ "writelong", L_setDWORD },
+	{ "writeword", L_setWORD },
+	{ "writeshort", L_setWORD },
+	{ "writebyte", L_setBYTE },
+	{ "writefloat", L_setfloat },
+	{ NULL, NULL }
+};
+static const struct luaL_Reg joypadfunctions[] = {
+	{ "get", L_getJoyPad },
+	{ "set", L_setJoyPad },
+	{ NULL, NULL }
+};
+static const struct luaL_Reg experimentalfunctions[] = {
+	{ "trayopen", L_trayopen },
+	{ "trayclose", L_trayclose },
+	{ "traystatus", L_traystatus },
 	{ NULL, NULL }
 };
 
 void PCSX2LuaFrameBoundary(void)
 {
+	std::lock_guard<std::recursive_timed_mutex> lock(scriptExecMtx);
 	// printf("Lua Frame\n");
 
 	lua_joypads_used = 0;
 
 	// HA!
-	if (!LUA || !luaRunning)
+	if (!LUA || !luaRunning){
 		return;
+	}
+
 
 	// Our function needs calling
 	lua_settop(LUA, 0);
@@ -148,7 +399,7 @@ void PCSX2LuaFrameBoundary(void)
 }
 
 // for Lua 5.2 or newer
-void luaL_register(lua_State*L, const char*n, const luaL_Reg*l){
+static void luaL_register(lua_State*L, const char*n, const luaL_Reg*l){
 	lua_newtable(L);
 	for (int i = 0; l[i].func != NULL&&l[i].name != NULL; i++){
 		lua_pushcfunction(L, l[i].func);
@@ -158,6 +409,7 @@ void luaL_register(lua_State*L, const char*n, const luaL_Reg*l){
 }
 
 int PCSX2LoadLuaCode(const char*filename){
+	std::lock_guard<std::recursive_timed_mutex> lock(scriptExecMtx);
 	if (!DemandLua())
 	{
 		return 0;
@@ -193,17 +445,19 @@ int PCSX2LoadLuaCode(const char*filename){
 		luaL_openlibs(LUA);
 
 		luaL_register(LUA, "emu", emufunctions);
-		//luaL_register(LUA, "memory", memoryfunctions);
+		luaL_register(LUA, "pcsx2", emufunctions);
+		luaL_register(LUA, "memory", memoryfunctions);
 		//luaL_register(LUA, "savestate", statefunctions);
-		//luaL_register(LUA, "joypad", joypadfunctions);
+		luaL_register(LUA, "joypad", joypadfunctions);
 		//luaL_register(LUA, "avi", recavifunctions);
+		luaL_register(LUA, "exp", experimentalfunctions);
 	}
 
 	lua_State *thread = lua_newthread(LUA);
 	int result = luaL_loadfile(LUA, filename);
 	if (result)
 	{
-		//printerror(LUA, -1);
+		printerror(LUA, -1);
 
 		// Wipe the stack. Our thread
 		lua_settop(LUA, 0);
@@ -214,24 +468,85 @@ int PCSX2LoadLuaCode(const char*filename){
 	luaRunning = true;
 	lua_joypads_used = 0;
 
+	//WinLuaOnStart();
+
 	PCSX2LuaFrameBoundary();
-	
+
 	return 1;
 }
 
 void PCSX2LuaStop(){
-	if (!DemandLua())
+	std::lock_guard<std::recursive_timed_mutex> lock(scriptExecMtx);
+	if (!DemandLua()){
 		return;
+	}
 
 	if (LUA){
 		//execute the user's shutdown callbacks
-		//CallExitFunction();
+		CallRegisteredLuaFunctions(LUACALL_BEFOREEXIT);
 		lua_close(LUA);
-		LUA = nullptr;
+		LUA = NULL;
 		PCSX2LuaOnStop();
+	}
+	//WinLuaOnStop();
+}
+
+void CallRegisteredLuaFunctions(LuaCallID calltype)
+{
+	std::lock_guard<std::recursive_timed_mutex> lock(scriptExecMtx);
+	assert((unsigned int)calltype < (unsigned int)LUACALL_COUNT);
+
+	const char *idstring = luaCallIDStrings[calltype];
+
+	if (!LUA)
+		return;
+
+	lua_settop(LUA, 0);
+	lua_getfield(LUA, LUA_REGISTRYINDEX, idstring);
+
+	int errorcode = 0;
+	if (lua_isfunction(LUA, -1))
+	{
+		errorcode = lua_pcall(LUA, 0, 0, 0);
+		if (errorcode){
+			//HandleCallbackError(LUA);
+			printerror(LUA, -1);
+			PCSX2LuaStop();
+		}
+	}
+	else
+	{
+		lua_pop(LUA, 1);
 	}
 }
 
 char*PCSX2GetLuaScriptName(){
 	return luaScriptName;
+}
+
+void lockLuamutex(){
+	scriptExecMtx.lock();
+}
+
+void unlockLuamutex(){
+	scriptExecMtx.unlock();
+}
+
+void Luajoypadset(){
+	if (g_Movie.File && g_Movie.Replay)
+		return;
+	if (!lua_joypads_used)
+		return;
+	if (lua_joypads_used & 1){
+		memcpy(g_PadData[0] + 2, padData[0], 6);
+	}
+	if (lua_joypads_used & 2){
+		memcpy(g_PadData[1] + 2, padData[1], 6);
+	}
+}
+
+bool usingjoypad(int port){
+	if (g_Movie.File && g_Movie.Replay)
+		return false;
+	return !!(lua_joypads_used&(1<<port));
 }

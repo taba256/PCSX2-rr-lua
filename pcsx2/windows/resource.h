@@ -674,6 +674,7 @@
 #define IDC_BUTTON_LUAEDIT              1815
 #define IDC_LUACONSOLE_CHOOSEFONT       1816
 #define IDC_LUACONSOLE_CLEAR            1817
+#define IDC_LUACONSOLE_UPDATE           1818
 #define ID_FILEOPEN                     40001
 #define ID_DEBUG_MEMORY_DUMP            40002
 #define ID_FILE_EXIT                    40003
