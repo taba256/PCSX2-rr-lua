@@ -169,7 +169,7 @@ static int writeMemory(lua_State*L, int size){
 	if (!PS2MEM_BASE || addr<0 || addr>(0x2000000 - size)){
 		return 0;
 	}
-	int src = luaL_checkinteger(L, 2);
+	int src = luaL_checkunsigned(L, 2);
 	memcpy(PS2MEM_BASE + addr, &src, size);
 	return 0;
 }
