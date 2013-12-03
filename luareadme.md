@@ -36,6 +36,8 @@ LuaScriptingFunctions
  - 符号付き4バイト整数を取得します。
 * number memory.readfloat(int addr)
  - 4バイト浮動小数点数を取得します。
+* string memory.readbyterange(int addr, int range)
+ - 指定したアドレスから任意のサイズのデータを読み込みます。string.byte(str,offset)でアクセスできます。
 * memory.writebyte(int addr, int val)
  - 1バイト整数を書き込みます。
 * memory.writeword(int addr, int val) / writeshort

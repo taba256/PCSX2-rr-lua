@@ -164,6 +164,19 @@ static int L_getfloat(lua_State*L){
 	lua_pushnumber(L, out);
 	return 1;
 }
+static int L_getbyterange(lua_State*L){
+	int addr = luaL_checkint(L, 1);
+	if (!PS2MEM_BASE || addr<0 || addr>(0x2000000 - 4)){
+		return 0;
+	}
+	int length = luaL_checkint(L, 2);
+	if (length < 0){
+		addr += length;
+		length *= -1;
+	}
+	lua_pushlstring(L, (char*)(PS2MEM_BASE + addr), length);
+	return 1;
+}
 static int writeMemory(lua_State*L, int size){
 	int addr = luaL_checkint(L, 1);
 	if (!PS2MEM_BASE || addr<0 || addr>(0x2000000 - size)){
@@ -313,6 +326,7 @@ static const struct luaL_Reg memoryfunctions[] = {
 	{ "readshortsigned", L_getWORDsigned },
 	{ "readbytesigned", L_getBYTEsigned },
 	{ "readfloat", L_getfloat },
+	{ "readbyterange", L_getbyterange },
 	{ "writedword", L_setDWORD },
 	{ "writelong", L_setDWORD },
 	{ "writeword", L_setWORD },
