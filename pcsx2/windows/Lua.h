@@ -8,7 +8,7 @@ enum LuaCallID
 	LUACALL_BEFOREEMULATION,
 	LUACALL_AFTEREMULATION,
 	LUACALL_BEFOREEXIT,
-
+	LUACALL_MEMORYWRITE,
 	LUACALL_COUNT
 };
 
@@ -21,3 +21,4 @@ void lockLuamutex();
 void unlockLuamutex();
 void Luajoypadset();
 bool usingjoypad(int port);
+bool Lua_memwriteAddrCheck(int addr);

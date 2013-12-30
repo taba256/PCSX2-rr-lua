@@ -25,6 +25,9 @@
 #include "iCore.h"
 #include "iR5900.h"
 
+//Lua
+#include "windows\Lua.h"
+
 using namespace vtlb_private;
 
 /*
@@ -235,6 +238,28 @@ void vtlb_DynGenRead32(u32 bits, bool sign)
 
 void vtlb_DynGenWrite(u32 sz)
 {
+	// if (Lua_memwriteAddrCheck(addr))
+	// 	CallRegisteredLuaFunctions(LUACALL_MEMORYWRITE);
+	//Start Lua
+	//push addr,data
+	PUSH32R(ECX);
+	PUSH32R(EDX);
+	//check addr
+	PUSH32R(ECX);
+	CALLFunc((u32)Lua_memwriteAddrCheck);//cdecl
+	POP32R(ECX);
+	TEST8RtoR(EAX, EAX);
+	u8* luacall = JZ8(0);
+	//call lua function
+	PUSH32I(LUACALL_MEMORYWRITE);
+	CALLFunc((u32)CallRegisteredLuaFunctions);//cdecl
+	POP32R(ECX);
+	x86SetJ8(luacall);
+	//pop data,addr
+	POP32R(EDX);
+	POP32R(ECX);
+	//End Lua
+
 	MOV32RtoR(EAX,ECX);
 	SHR32ItoR(EAX,VTLB_PAGE_BITS);
 	MOV32RmSOffsettoR(EAX,EAX,(int)vmap,2);

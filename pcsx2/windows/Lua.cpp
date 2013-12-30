@@ -17,10 +17,13 @@ static unsigned char padData[2][6] = { 0 };
 static bool frameBoundary = false;
 static bool frameAdvanceWaiting = false;
 static int numTries = 0;
+static string LuaDirectory = "";
+static string EmuDirectory = "";
 static const char *luaCallIDStrings[] = {
 	"CALL_BEFOREEMULATION",
 	"CALL_AFTEREMULATION",
-	"CALL_BEFOREEXIT"
+	"CALL_BEFOREEXIT",
+	"CALL_MEMORYWRITE"
 };
 static const char *button_mappings[] = {
 	"select", "l3", "r3", "start", "up", "right", "down", "left",
@@ -32,23 +35,6 @@ static const char *analog_mappings[] = {
 
 static const char *frameAdvanceThread = "PCSX2.FrameAdvance";
 static std::recursive_timed_mutex scriptExecMtx;
-
-static bool DemandLua()
-{
-	return true;
-#ifdef _WIN32
-	HMODULE mod = LoadLibrary("lua52.dll");
-	if (!mod)
-	{
-		MessageBox(NULL, "lua52.dll was not found. Please get it into your PATH or in the same directory as PCSX2.exe", "PCSX2", MB_OK | MB_ICONERROR);
-		return false;
-	}
-	FreeLibrary(mod);
-	return true;
-#else
-	return true;
-#endif
-}
 
 /*emu/pcsx2 functions*/
 //print
@@ -279,6 +265,26 @@ int L_traystatus(lua_State*L){
 	lua_pushinteger(L, cdvdGetTrayStatus());
 	return 1;
 }
+static int memwriteaddr = 0;
+bool Lua_memwriteAddrCheck(int addr){
+	if (memwriteaddr != 0 && memwriteaddr == addr)
+		return true;
+	return false;
+}
+static int L_registermemwrite(lua_State*L){
+	memwriteaddr = luaL_checkint(L, 1);
+	lua_remove(L, 1);
+	return registerfunction(L, LUACALL_MEMORYWRITE);
+}
+static int L_getRegister(lua_State*L){
+	int reg = luaL_checkint(L, 1) & 0x1f;
+	lua_pushunsigned(L, cpuRegs.GPR.r[reg].UL[0]);
+	return 1;
+}
+static int L_getPC(lua_State*L){
+	lua_pushunsigned(L, cpuRegs.pc);
+	return 1;
+}
 
 static int printerror(lua_State *L, int idx)
 {
@@ -344,6 +350,9 @@ static const struct luaL_Reg experimentalfunctions[] = {
 	{ "trayopen", L_trayopen },
 	{ "trayclose", L_trayclose },
 	{ "traystatus", L_traystatus },
+	{ "registerwrite", L_registermemwrite },
+	{ "readreg", L_getRegister },
+	{ "readpc", L_getPC },
 	{ NULL, NULL }
 };
 
@@ -359,6 +368,7 @@ void PCSX2LuaFrameBoundary(void)
 		return;
 	}
 
+	SetCurrentDirectory(LuaDirectory.c_str());
 
 	// Our function needs calling
 	lua_settop(LUA, 0);
@@ -410,6 +420,7 @@ void PCSX2LuaFrameBoundary(void)
 	{
 		PCSX2LuaOnStop();
 	}
+	SetCurrentDirectory(EmuDirectory.c_str());
 }
 
 // for Lua 5.2 or newer
@@ -424,10 +435,6 @@ static void luaL_register(lua_State*L, const char*n, const luaL_Reg*l){
 
 int PCSX2LoadLuaCode(const char*filename){
 	std::lock_guard<std::recursive_timed_mutex> lock(scriptExecMtx);
-	if (!DemandLua())
-	{
-		return 0;
-	}
 
 	if (filename != luaScriptName)
 	{
@@ -451,7 +458,10 @@ int PCSX2LoadLuaCode(const char*filename){
 	{
 		slash[1] = '\0'; // keep slash itself for some reasons
 		//chdir(dir);
-		SetCurrentDirectory(dir);
+		//SetCurrentDirectory(dir);
+		LuaDirectory = dir;
+		GetCurrentDirectory(_MAX_PATH, dir);
+		EmuDirectory = dir;
 	}
 	if (!LUA)
 	{
@@ -491,15 +501,13 @@ int PCSX2LoadLuaCode(const char*filename){
 
 void PCSX2LuaStop(){
 	std::lock_guard<std::recursive_timed_mutex> lock(scriptExecMtx);
-	if (!DemandLua()){
-		return;
-	}
 
 	if (LUA){
 		//execute the user's shutdown callbacks
 		CallRegisteredLuaFunctions(LUACALL_BEFOREEXIT);
 		lua_close(LUA);
 		LUA = NULL;
+		memwriteaddr = 0;
 		PCSX2LuaOnStop();
 	}
 	//WinLuaOnStop();
@@ -514,6 +522,8 @@ void CallRegisteredLuaFunctions(LuaCallID calltype)
 
 	if (!LUA)
 		return;
+
+	SetCurrentDirectory(LuaDirectory.c_str());
 
 	lua_settop(LUA, 0);
 	lua_getfield(LUA, LUA_REGISTRYINDEX, idstring);
@@ -532,6 +542,7 @@ void CallRegisteredLuaFunctions(LuaCallID calltype)
 	{
 		lua_pop(LUA, 1);
 	}
+	SetCurrentDirectory(EmuDirectory.c_str());
 }
 
 char*PCSX2GetLuaScriptName(){
